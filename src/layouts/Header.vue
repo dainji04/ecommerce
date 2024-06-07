@@ -1,0 +1,84 @@
+<template>
+  <container>
+    <div
+      class="text-sm flex gap-[200px] h-12 w-full bg-black text-white py-3 pr-[136px] pl-[270px] items-center"
+    >
+      <div class="flex gap-2">
+        <h2>
+          Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
+        </h2>
+        <router-link class="underline" to="#">ShopNow</router-link>
+      </div>
+      <div
+        @click="toggleLanguages"
+        class="flex justify-center items-center gap-1 cursor-pointer relative"
+      >
+        <h2>{{ recentLanguage }}</h2>
+        <img src="@/assets/fonts/down-arrow.svg" alt="" />
+        <div
+          v-show="showSelectLangs"
+          class="absolute bg-black mt-6 rounded-md text-left py-3 px-4"
+        >
+          <h2 @click="succesLang('English')" class="hover:text-gray-400">
+            English
+          </h2>
+          <h2 @click="succesLang('Vietnamese')" class="hover:text-gray-400">
+            Vietnamese
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center gap-36 mx-auto mt-10 mb-4 max-w-[1170px]">
+      <div class="flex items-center gap-[188px]">
+        <h1 class="font-bold">Exclusive</h1>
+        <nav class="flex gap-12">
+          <router-link to="/">Home</router-link>
+          <router-link to="#">Contact</router-link>
+          <router-link to="#">About</router-link>
+          <router-link to="/sign-up">Sign UP</router-link>
+        </nav>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="relative flex items-center">
+          <input
+            class="bg-[#f5f5f5] rounded-lg border-none outline-none py-3 px-4 pr-16"
+            type="text"
+            placeholder="What are you looking for?"
+          />
+          <img
+            class="absolute right-0 mr-3 select-none"
+            src="@/assets/fonts/search.svg"
+            alt=""
+          />
+        </div>
+        <div class="flex items-center gap-4">
+          <img src="@/assets/fonts/heart.svg" alt="" />
+          <img src="@/assets/fonts/cart.svg" alt="" />
+        </div>
+      </div>
+    </div>
+  </container>
+  <span
+    class="w-full flex h-[1px] justify-center items-center flex-shrink-0 bg-gray-200"
+  ></span>
+  <router-view />
+</template>
+<script>
+export default {
+  data() {
+    const recentLanguage = "English";
+    return {
+      recentLanguage,
+      showSelectLangs: false,
+    };
+  },
+  methods: {
+    toggleLanguages() {
+      this.showSelectLangs = !this.showSelectLangs;
+    },
+    succesLang(lang) {
+      alert("select language succes: " + lang);
+    },
+  },
+};
+</script>
