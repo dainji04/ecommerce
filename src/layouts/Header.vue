@@ -11,13 +11,15 @@
       </div>
       <div
         @click="toggleLanguages"
-        class="flex justify-center items-center gap-1 cursor-pointer relative"
+        class="flex flex-col gap-1 cursor-pointer relative"
       >
-        <h2>{{ recentLanguage }}</h2>
-        <img src="@/assets/fonts/down-arrow.svg" alt="" />
+        <div class="flex justify-center items-center pl-3">
+          <h2>{{ recentLanguage }}</h2>
+          <img src="@/assets/fonts/down-arrow.svg" alt="" />
+        </div>
         <div
           v-show="showSelectLangs"
-          class="absolute bg-black mt-6 rounded-md text-left py-3 px-4"
+          class="absolute bg-black mt-6 rounded-md text-left py-3 px-4 z-10"
         >
           <h2 @click="succesLang('English')" class="hover:text-gray-400">
             English
@@ -28,14 +30,22 @@
         </div>
       </div>
     </div>
-    <div class="flex items-center gap-36 mx-auto mt-10 mb-4 max-w-[1170px]">
+    <div class="flex items-center gap-40 mx-auto mt-10 mb-4 max-w-[1170px]">
       <div class="flex items-center gap-[188px]">
-        <h1 class="font-bold">Exclusive</h1>
+        <h1 class="font-bold select-none">Exclusive</h1>
         <nav class="flex gap-12">
-          <router-link to="/">Home</router-link>
-          <router-link to="#">Contact</router-link>
-          <router-link to="#">About</router-link>
-          <router-link to="/sign-up">Sign UP</router-link>
+          <router-link class="hover:underline decoration-[#ccc]" to="/"
+            >Home</router-link
+          >
+          <router-link class="hover:underline decoration-[#ccc]" to="/abc"
+            >Contact</router-link
+          >
+          <router-link class="hover:underline decoration-[#ccc]" to="/xyz"
+            >About</router-link
+          >
+          <router-link class="hover:underline decoration-[#ccc]" to="/sign-up"
+            >Sign UP</router-link
+          >
         </nav>
       </div>
       <div class="flex items-center gap-6">
@@ -52,8 +62,8 @@
           />
         </div>
         <div class="flex items-center gap-4">
-          <img src="@/assets/fonts/heart.svg" alt="" />
-          <img src="@/assets/fonts/cart.svg" alt="" />
+          <img class="cursor-pointer" src="@/assets/fonts/heart.svg" alt="" />
+          <img class="cursor-pointer" src="@/assets/fonts/cart.svg" alt="" />
         </div>
       </div>
     </div>
@@ -82,3 +92,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+nav a.router-link-exact-active {
+  text-decoration: underline;
+  text-decoration-color: #ccc;
+}
+</style>
