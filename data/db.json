@@ -1,0 +1,9 @@
+{
+  "flash-sales": [
+    {
+      "img": "./src/images/product1.png",
+      "name": "keyboard",
+      "price": " $160"
+    }
+  ]
+}
