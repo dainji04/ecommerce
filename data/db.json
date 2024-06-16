@@ -1,9 +1,28 @@
 {
   "flash-sales": [
     {
-      "img": "./src/images/product1.png",
-      "name": "keyboard",
-      "price": " $160"
+      "img": "https://res.cloudinary.com/dgh7tgs5l/image/upload/v1718522472/ecommerce-vuejs/wr2lhucsspnavqsxxj58.png",
+      "name": "HAVIT HV-G92 Gamepad",
+      "price": " 160",
+      "sales": 40
+    },
+    {
+      "img": "https://res.cloudinary.com/dgh7tgs5l/image/upload/v1718522472/ecommerce-vuejs/j35apiuruleghjdimhpm.png",
+      "name": "AK-900 Wired Keyboard",
+      "price": " 1160",
+      "sales": 35
+    },
+    {
+      "img": "https://res.cloudinary.com/dgh7tgs5l/image/upload/v1718522472/ecommerce-vuejs/yaaidzpvnibqpqlb132s.png",
+      "name": "IPS LCD Gaming Monitor",
+      "price": " 400",
+      "sales": 30
+    },
+    {
+      "img": "https://res.cloudinary.com/dgh7tgs5l/image/upload/v1718522472/ecommerce-vuejs/k0fiifqvjhoumz8hdgjy.png",
+      "name": "S-Series Comfort Chair",
+      "price": " 400",
+      "sales": 25
     }
   ]
 }

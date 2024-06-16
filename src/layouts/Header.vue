@@ -1,5 +1,5 @@
 <template>
-  <container>
+  <div>
     <div
       class="text-sm flex gap-[200px] h-12 w-full bg-black text-white py-3 pr-[136px] pl-[270px] items-center"
     >
@@ -67,11 +67,10 @@
         </div>
       </div>
     </div>
-  </container>
+  </div>
   <span
-    class="w-full flex h-[1px] justify-center items-center flex-shrink-0 bg-gray-200"
+    class="w-full flex h-[0.5px] justify-center items-center flex-shrink-0 bg-black opacity-30"
   ></span>
-  <router-view />
 </template>
 <script>
 export default {

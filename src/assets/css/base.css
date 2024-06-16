@@ -9,3 +9,6 @@ html {
 ::selection {
   background-color: #ccc;
 }
+body::-webkit-scrollbar {
+  display: none;
+}
