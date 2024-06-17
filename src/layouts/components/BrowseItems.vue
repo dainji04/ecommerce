@@ -1,45 +1,38 @@
 <template>
   <div>
     <div class="flash-sales w-full flex flex-col relative mt-20">
-      <div class="w-full">
-        <div class="w-full flex items-end justify-between">
-          <div class="flex items-end gap-[87px]">
-            <div class="flex flex-col gap-6">
-              <div class="flex items-center gap-4">
-                <img src="@/assets/fonts/shape.svg" alt="shape" />
-                <h2 class="text-primary text-base font-semibold leading-5">
-                  Categories
-                </h2>
-              </div>
-              <div>
-                <h1
-                  class="font-[inter] text-4xl font-semibold leading-[48px] tracking-[1.44px]"
-                >
-                  Browse By Category
-                </h1>
-              </div>
+      <div class="w-full flex items-end justify-between">
+        <div class="w-full flex justify-between items-end gap-[87px]">
+          <div class="flex flex-col gap-6">
+            <div class="flex items-center gap-4">
+              <img src="@/assets/fonts/shape.svg" alt="shape" />
+              <h2 class="text-primary text-base font-semibold leading-5">
+                Categories
+              </h2>
             </div>
-            <div class="flex items-center gap-2">
-              <div class="p-[11px] bg-grayScale rounded-full cursor-pointer">
-                <img
-                  class="invert rotate-[180deg]"
-                  src="@/assets/fonts/arrow-right.svg"
-                  alt=""
-                />
-              </div>
-              <div class="p-[11px] bg-grayScale rounded-full cursor-pointer">
-                <img
-                  class="invert"
-                  src="@/assets/fonts/arrow-right.svg"
-                  alt=""
-                />
-              </div>
+            <div>
+              <h1
+                class="font-[inter] text-4xl font-semibold leading-[48px] tracking-[1.44px]"
+              >
+                Browse By Category
+              </h1>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="p-[11px] bg-grayScale rounded-full cursor-pointer">
+              <img
+                class="invert rotate-[180deg]"
+                src="@/assets/fonts/arrow-right.svg"
+                alt=""
+              />
+            </div>
+            <div class="p-[11px] bg-grayScale rounded-full cursor-pointer">
+              <img class="invert" src="@/assets/fonts/arrow-right.svg" alt="" />
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div></div>
   </div>
   <div class="list-media flex gap-8 mt-[60px]">
     <div>
@@ -67,7 +60,7 @@
       <p>gaming</p>
     </div>
   </div>
-  <div class="h-[0.5] w-full bg-black opacity-30 mt-[70px]"></div>
+  <div class="h-[0.5] w-full bg-black opacity-30 my-[70px]"></div>
 </template>
 <script>
 export default {

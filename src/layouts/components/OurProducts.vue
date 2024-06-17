@@ -8,60 +8,15 @@
               <div class="flex items-center gap-4">
                 <img src="@/assets/fonts/shape.svg" alt="shape" />
                 <h2 class="text-primary text-base font-semibold leading-5">
-                  Today's
+                  Our Products
                 </h2>
               </div>
               <div>
                 <h1
                   class="font-[inter] text-4xl font-semibold leading-[48px] tracking-[1.44px]"
                 >
-                  Flash Sales
+                  Explore Our Products
                 </h1>
-              </div>
-            </div>
-            <div
-              id="date"
-              class="flex items-center gap-[38px] pb-2 select-none"
-            >
-              <div class="flex gap-[17px] items-end">
-                <div class="flex flex-col gap-1">
-                  <h2 class="text-xs font-medium">Days</h2>
-                  <h3
-                    class="text-[32px] font-[inter] font-bold leading-[30px] tracking-[1.28px]"
-                  >
-                    {{ days }}
-                  </h3>
-                </div>
-              </div>
-              <div class="flex gap-[17px] items-end">
-                <div class="flex flex-col gap-1">
-                  <h2 class="text-xs font-medium">Hours</h2>
-                  <h3
-                    class="text-[32px] font-[inter] font-bold leading-[30px] tracking-[1.28px]"
-                  >
-                    {{ hours }}
-                  </h3>
-                </div>
-              </div>
-              <div class="flex gap-[17px] items-end">
-                <div class="flex flex-col gap-1">
-                  <h2 class="text-xs font-medium">Minutes</h2>
-                  <h3
-                    class="text-[32px] font-[inter] font-bold leading-[30px] tracking-[1.28px]"
-                  >
-                    {{ minutes }}
-                  </h3>
-                </div>
-              </div>
-              <div class="flex gap-[17px] items-end">
-                <div class="flex flex-col gap-1">
-                  <h2 class="text-xs font-medium">Seconds</h2>
-                  <h3
-                    class="text-[32px] font-[inter] font-bold leading-[30px] tracking-[1.28px]"
-                  >
-                    {{ seconds }}
-                  </h3>
-                </div>
               </div>
             </div>
           </div>
@@ -90,9 +45,6 @@
           <div
             class="item w-full h-[250px] bg-grayScale rounded-md overflow-hidden outline-none border-none flex items-center justify-center relative"
           >
-            <div class="absolute top-3 left-3 px-3 py-1 bg-primary rounded-md">
-              <p class="text-white text-xs">-{{ item.sales }}%</p>
-            </div>
             <img class="p-[14px]" :src="item.img" alt="" />
             <div
               class="absolute top-3 right-3 flex flex-col justify-center gap-2"
@@ -117,12 +69,7 @@
           <div class="flex flex-col gap-2">
             <h2 class="font-semibold">{{ item.name }}</h2>
             <div class="flex items-center gap-3">
-              <p class="text-primary font-semibold">
-                {{ calculatorSales(item.price, item.sales) }}
-              </p>
-              <p class="opacity-50 font-semibold line-through">
-                ${{ item.price }}
-              </p>
+              <p class="text-primary font-semibold">${{ item.price }}</p>
             </div>
             <div class="flex gap-2">
               <div class="flex">
@@ -164,7 +111,6 @@
       </div>
     </div>
   </div>
-  <div class="line w-full h-[0.5px] bg-black opacity-30"></div>
 </template>
 <script>
 export default {
@@ -172,21 +118,22 @@ export default {
     return {
       items: {},
       showAddCart: false,
-      days: "01",
-      hours: "23",
-      minutes: "19",
-      seconds: "31",
     };
   },
   mounted() {
-    let targetDate = new Date();
-    targetDate.setFullYear(2024, 6, 31);
-    targetDate.setHours(0, 0, 0);
-    this.updateTime(targetDate);
-    setInterval(() => {
-      this.updateTime(targetDate);
-    }, 1000);
-    this.fetchAPI();
+    const url = `http://localhost:3000/our-products`;
+    fetch(url)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("something wrong...");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        this.items = data;
+      })
+      .catch((err) => err);
   },
   methods: {
     calculatorSales(originalPrice, discount) {
@@ -194,39 +141,6 @@ export default {
       let priceSaled = originalPrice * discountPercent;
       let resultPrice = originalPrice - priceSaled;
       return resultPrice.toFixed(2);
-    },
-    fetchAPI() {
-      const url = `http://localhost:3000/flash-sales`;
-      fetch(url)
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("something wrong...");
-          }
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-          this.items = data;
-        })
-        .catch((err) => err);
-    },
-    updateTime(targetDate) {
-      const now = new Date();
-      const newTime = targetDate - now;
-      if (newTime <= 0) {
-        this.days = "00";
-        this.hours = "00";
-        this.minutes = "00";
-        this.seconds = "00";
-      } else {
-        this.days = Math.floor(newTime / (1000 * 60 * 60 * 24));
-        this.hours = Math.floor((newTime / (1000 * 60 * 60)) % 24);
-        this.minutes = Math.floor((newTime / 1000 / 60) % 60);
-        this.seconds = Math.floor((newTime / 1000) % 60);
-      }
-    },
-    ToggleAddCart() {
-      this.showAddCart = !this.showAddCart;
     },
   },
 };

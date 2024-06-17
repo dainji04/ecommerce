@@ -32,7 +32,7 @@
     </div>
     <div class="flex items-center gap-40 mx-auto mt-10 mb-4 max-w-[1170px]">
       <div class="flex items-center gap-[188px]">
-        <h1 class="font-bold select-none">Exclusive</h1>
+        <h1 class="font-bold select-none">its'Dainji</h1>
         <nav class="flex gap-12">
           <router-link class="hover:underline decoration-[#ccc]" to="/"
             >Home</router-link
