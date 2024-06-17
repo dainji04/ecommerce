@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black">
+  <div class="bg-black mt-[140px]">
     <div
       class="text-white grid grid-cols-5 gap-[50px] pt-20 max-w-[1170px] mx-auto"
     >
