@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <div class="mt-[60px]">
     <div class="flex items-center gap-[90px]">
       <div class="w-[60%] pt-[75px] bg-[#CBE4E8]">
@@ -7,17 +8,17 @@
       <div class="w-[30%]">
         <h1 class="font-[inter] text-4xl font-medium">Create an account</h1>
         <h2 class="mt-6 mb-12">Enter your details below</h2>
-        <form @submit.prevent>
+        <form @submit.prevent="Register">
           <div class="input-form">
-            <input type="text" required />
+            <input type="text" v-model="name" required />
             <label for="name">Name</label>
           </div>
           <div class="input-form">
-            <input type="email" required />
+            <input type="email" v-model="email" required />
             <label for="email">Email</label>
           </div>
           <div class="input-form">
-            <input type="password" required />
+            <input type="password" v-model="pwd" required />
             <label for="password">password</label>
           </div>
           <button
@@ -42,7 +43,49 @@
       </div>
     </div>
   </div>
+  <Footer />
 </template>
+
+<script>
+import { ref } from "vue";
+import firebase from "firebase/compat/app";
+
+import Header from "../layouts/Header.vue";
+import Footer from "../layouts/Footer.vue";
+
+export default {
+  components: {
+    Header,
+    Footer,
+  },
+  setup() {
+    const name = ref("");
+    const email = ref("");
+    const pwd = ref("");
+
+    const Register = () => {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(email.value, pwd.value)
+        .then((user) => {
+          user.user.updateProfile({
+            displayName: name.value,
+          });
+          console.log(user);
+        })
+        .catch((err) => alert(err.massage));
+    };
+
+    return {
+      Register,
+      name,
+      email,
+      pwd,
+    };
+  },
+};
+</script>
+
 <style scoped>
 input {
   border: none;

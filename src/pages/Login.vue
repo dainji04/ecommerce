@@ -1,4 +1,5 @@
 <template>
+  <Header />
   <div class="mt-[60px]">
     <div class="flex items-center gap-[90px]">
       <div class="pt-[75px] bg-[#CBE4E8] w-[60%]">
@@ -7,13 +8,13 @@
       <div class="w-[30%]">
         <h1 class="font-[inter] text-4xl font-medium">Log in to Dainji's</h1>
         <h2 class="mt-6 mb-12">Enter your details below</h2>
-        <form @submit.prevent>
+        <form @submit.prevent="Login">
           <div class="input-form">
-            <input type="email" required />
+            <input type="email" v-model="email" required />
             <label for="email">Email</label>
           </div>
           <div class="input-form">
-            <input type="password" required />
+            <input type="password" v-model="pwd" required />
             <label for="password">password</label>
           </div>
 
@@ -36,7 +37,41 @@
       </div>
     </div>
   </div>
+  <Footer />
 </template>
+
+<script>
+import Header from "../layouts/Header.vue";
+import Footer from "../layouts/Footer.vue";
+
+import { ref } from "vue";
+import firebase from "firebase/compat/app";
+export default {
+  components: {
+    Header,
+    Footer,
+  },
+  setup() {
+    const email = ref("");
+    const pwd = ref("");
+
+    const Login = () => {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email.value, pwd.value)
+        .then((data) => console.log(data))
+        .catch(() => alert("Email or Password is wrong!!!"));
+    };
+
+    return {
+      email,
+      pwd,
+      Login,
+    };
+  },
+};
+</script>
+
 <style scoped>
 input {
   border: none;

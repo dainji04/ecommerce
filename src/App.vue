@@ -1,9 +1,31 @@
 <template>
-  <Header />
   <router-view />
-  <Footer />
 </template>
-<script setup>
-import Header from "./layouts/Header.vue";
-import Footer from "./layouts/Footer.vue";
+
+<script>
+import { onBeforeMount } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import firebase from "firebase/compat/app";
+
+export default {
+  data() {
+    const route = useRoute();
+    const router = useRouter();
+
+    onBeforeMount(() => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          router.replace("/");
+        } else if (
+          route.path == "/login" ||
+          route.path == "/sign-up" ||
+          route.path == "/" ||
+          route.path == ""
+        ) {
+          router.replace("/home/u");
+        }
+      });
+    });
+  },
+};
 </script>
