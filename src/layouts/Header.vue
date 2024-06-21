@@ -34,18 +34,18 @@
       <div class="flex items-center gap-[188px]">
         <h1 class="font-bold select-none">its'Dainji</h1>
         <nav class="flex gap-12">
-          <router-link class="hover:underline decoration-[#ccc]" to="/"
-            >Home</router-link
-          >
-          <router-link class="hover:underline decoration-[#ccc]" to="/abc"
-            >Contact</router-link
-          >
-          <router-link class="hover:underline decoration-[#ccc]" to="/xyz"
-            >About</router-link
-          >
-          <router-link class="hover:underline decoration-[#ccc]" to="/sign-up"
-            >Sign UP</router-link
-          >
+          <router-link class="hover:underline decoration-[#ccc]" to="/">
+            Home
+          </router-link>
+          <router-link class="hover:underline decoration-[#ccc]" to="/abc">
+            Contact
+          </router-link>
+          <router-link class="hover:underline decoration-[#ccc]" to="/xyz">
+            About
+          </router-link>
+          <router-link class="hover:underline decoration-[#ccc]" to="/sign-up">
+            Sign UP
+          </router-link>
         </nav>
       </div>
       <div class="flex items-center gap-6">

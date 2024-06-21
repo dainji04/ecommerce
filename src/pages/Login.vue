@@ -1,17 +1,13 @@
 <template>
   <div class="mt-[60px]">
     <div class="flex items-center gap-[90px]">
-      <div class="w-[60%] pt-[75px] bg-[#CBE4E8]">
+      <div class="pt-[75px] bg-[#CBE4E8] w-[60%]">
         <img src="@/assets/images/signupBG.png" alt="" />
       </div>
       <div class="w-[30%]">
-        <h1 class="font-[inter] text-4xl font-medium">Create an account</h1>
+        <h1 class="font-[inter] text-4xl font-medium">Log in to Dainji's</h1>
         <h2 class="mt-6 mb-12">Enter your details below</h2>
         <form @submit.prevent>
-          <div class="input-form">
-            <input type="text" required />
-            <label for="name">Name</label>
-          </div>
           <div class="input-form">
             <input type="email" required />
             <label for="email">Email</label>
@@ -20,23 +16,21 @@
             <input type="password" required />
             <label for="password">password</label>
           </div>
-          <button
-            type="submit"
-            class="mt-10 bg-primary py-4 w-full rounded-md text-white font-medium"
-          >
-            Create Account
-          </button>
+
+          <div class="flex items-center justify-between">
+            <button
+              type="submit"
+              class="w-[40%] mt-10 bg-primary py-4 rounded-md text-white font-medium"
+            >
+              Log In
+            </button>
+            <a href="#" class="mt-8 text-primary">Forgot password?</a>
+          </div>
         </form>
-        <button
-          class="mt-4 w-full flex justify-center items-center gap-4 bg-white border border-black rounded-md py-4"
-        >
-          <img src="@/assets/fonts/google.svg" alt="" />
-          <p>Sign up with Google</p>
-        </button>
         <div class="mt-8 flex justify-center items-center gap-4">
-          <p>Already have account?</p>
-          <router-link to="/login" class="font-medium border-b border-black">
-            Log in
+          <p>New to Dainji's Store?</p>
+          <router-link to="/sign-up" class="font-medium border-b border-black">
+            Sign Up
           </router-link>
         </div>
       </div>

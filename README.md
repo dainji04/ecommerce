@@ -2,6 +2,8 @@
 
 ![demo image project](/src/assets/images/demo-project.png)
 
+- Ideas about us for this web: [link web gốc](https://moco.supercell.com/en/)
+
 ## Project setup
 
 ```
