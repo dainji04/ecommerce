@@ -25,7 +25,8 @@
       "img": "https://res.cloudinary.com/dgh7tgs5l/image/upload/v1718607730/ecommerce-vuejs/flashsales/uoger9v0ac4npt32c43l.png",
       "name": "S-Series Comfort Chair",
       "price": "400",
-      "sales": 99
+      "sales": 0,
+      "stock": 15
     }
   ],
   "best-sell": [

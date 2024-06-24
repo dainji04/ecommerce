@@ -45,7 +45,7 @@
           <div
             class="item w-full h-[250px] bg-grayScale rounded-md overflow-hidden outline-none border-none flex items-center justify-center relative"
           >
-            <img class="p-[14px]" :src="item.img" alt="" />
+            <img class="items-product p-[14px]" :src="item.img" alt="" />
             <div
               class="absolute top-3 right-3 flex flex-col justify-center gap-2"
             >

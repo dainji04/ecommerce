@@ -43,8 +43,8 @@
           <router-link class="hover:underline decoration-[#ccc]" to="/xyz">
             About
           </router-link>
-          <router-link class="hover:underline decoration-[#ccc]" to="/sign-up">
-            Sign UP
+          <router-link class="hover:underline decoration-[#ccc]" to="/login">
+            Login
           </router-link>
         </nav>
       </div>

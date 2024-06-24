@@ -93,7 +93,7 @@
             <div class="absolute top-3 left-3 px-3 py-1 bg-primary rounded-md">
               <p class="text-white text-xs">-{{ item.sales }}%</p>
             </div>
-            <img class="p-[14px]" :src="item.img" alt="" />
+            <img class="items-product p-[14px]" :src="item.img" alt="" />
             <div
               class="absolute top-3 right-3 flex flex-col justify-center gap-2"
             >
@@ -245,6 +245,8 @@ export default {
 }
 .item:hover .add-to-cart {
   display: flex;
+}
+.item:hover > img {
 }
 @keyframes showAddToCart {
   0% {

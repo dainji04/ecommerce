@@ -1,5 +1,5 @@
 <template>
-  <div id="Slide-and-menu" class="flex">
+  <div id="Slide-and-menu" class="flex justify-between">
     <div class="relative mt-10">
       <div class="flex flex-col gap-4">
         <div

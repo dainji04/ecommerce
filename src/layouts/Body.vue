@@ -16,3 +16,12 @@ import BestSelling from "./components/BestSelling.vue";
 import OurProducts from "./components/OurProducts.vue";
 import NewArrival from "./components/NewArrival.vue";
 </script>
+<style>
+.item .items-product {
+  transform: scale(1);
+  transition: 0.5s;
+}
+.item:hover .items-product {
+  transform: scale(1.1);
+}
+</style>

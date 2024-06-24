@@ -30,7 +30,9 @@
         </div>
       </div>
     </div>
-    <div class="flex items-center gap-40 mx-auto mt-10 mb-4 max-w-[1170px]">
+    <div
+      class="flex justify-between items-center gap-40 mx-auto mt-10 mb-4 max-w-[1170px]"
+    >
       <div class="flex items-center gap-[188px]">
         <h1 class="font-bold select-none">its'Dainji</h1>
         <nav class="flex gap-12">
@@ -61,21 +63,78 @@
         <div class="flex items-center gap-4">
           <img class="cursor-pointer" src="@/assets/fonts/heart.svg" alt="" />
           <img class="cursor-pointer" src="@/assets/fonts/cart.svg" alt="" />
+          <div class="flex flex-col relative">
+            <button @click="toggleSetting">
+              <img src="@/assets/fonts/profile.svg" alt="" />
+              <ul
+                :class="showSetting"
+                class="menu-setting w-[230px] absolute right-0 z-10"
+              >
+                <li>
+                  <div>
+                    <img src="@/assets/fonts/profile2.svg" alt="" />
+                  </div>
+                  <p>Manage My Account</p>
+                </li>
+                <li>
+                  <div>
+                    <img src="@/assets/fonts/grocery.svg" alt="" />
+                  </div>
+                  <p>My Order</p>
+                </li>
+                <li>
+                  <div>
+                    <img src="@/assets/fonts/close-recycle.svg" alt="" />
+                  </div>
+                  <p>My Cancellations</p>
+                </li>
+                <li>
+                  <div>
+                    <img src="@/assets/fonts/star-solid.svg" alt="" />
+                  </div>
+                  <p>My Reviews</p>
+                </li>
+                <li class="cursor-pointer" @click="Logout">
+                  <div>
+                    <img src="@/assets/fonts/logout.svg" alt="" />
+                  </div>
+                  <p>Logout</p>
+                </li>
+              </ul>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <span
     class="w-full flex h-[0.5px] justify-center items-center flex-shrink-0 bg-black opacity-30"
-  ></span>
+  >
+  </span>
 </template>
 <script>
+import firebase from "firebase/compat/app";
+
 export default {
+  setup() {
+    const Logout = () => {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => alert("Signed out"))
+        .catch((err) => alert(err.message));
+    };
+
+    return {
+      Logout,
+    };
+  },
   data() {
     const recentLanguage = "English";
     return {
       recentLanguage,
       showSelectLangs: false,
+      showSetting: "hidden",
     };
   },
   methods: {
@@ -85,6 +144,13 @@ export default {
     succesLang(lang) {
       alert("select language succes: " + lang);
     },
+    toggleSetting() {
+      if (this.showSetting == "show") {
+        this.showSetting = "hidden";
+      } else {
+        this.showSetting = "show";
+      }
+    },
   },
 };
 </script>
@@ -92,5 +158,40 @@ export default {
 nav a.router-link-exact-active {
   text-decoration: underline;
   text-decoration-color: #ccc;
+}
+.hidden {
+  display: none;
+}
+.show {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+.menu-setting {
+  border-radius: 4px;
+  backdrop-filter: blur(75px);
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 18px 12px 10px 20px;
+}
+.menu-setting > li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.menu-setting > li:hover > p {
+  color: blue;
+}
+.menu-setting > li > p {
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  color: #fafafa;
+}
+.menu-setting > li > div {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
