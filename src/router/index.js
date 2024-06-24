@@ -6,6 +6,7 @@ import HomePage from "../pages/HomePage.vue";
 import SignUp from "../pages/SignUp.vue";
 import Login from "../pages/Login.vue";
 import HomeLogin from "../pages/AppLogin.vue";
+import WishList from "../pages/WishList.vue";
 
 const routes = [
   {
@@ -27,6 +28,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
+  },
+  {
+    path: "/wish-list",
+    name: "wish-list",
+    component: WishList,
   },
 ];
 

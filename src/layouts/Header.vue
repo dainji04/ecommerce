@@ -62,7 +62,9 @@
           />
         </div>
         <div class="flex items-center gap-4">
-          <img class="cursor-pointer" src="@/assets/fonts/heart.svg" alt="" />
+          <router-link to="/wish-list">
+            <img class="cursor-pointer" src="@/assets/fonts/heart.svg" alt="" />
+          </router-link>
           <img class="cursor-pointer" src="@/assets/fonts/cart.svg" alt="" />
         </div>
       </div>
