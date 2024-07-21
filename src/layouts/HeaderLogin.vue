@@ -64,7 +64,9 @@
           <router-link to="/wish-list">
             <img class="cursor-pointer" src="@/assets/fonts/heart.svg" alt="" />
           </router-link>
-          <img class="cursor-pointer" src="@/assets/fonts/cart.svg" alt="" />
+          <router-link to="/cart">
+            <img class="cursor-pointer" src="@/assets/fonts/cart.svg" alt="" />
+          </router-link>
           <div class="flex flex-col relative">
             <button @click="toggleSetting">
               <img src="@/assets/fonts/profile.svg" alt="" />
@@ -180,6 +182,9 @@ nav a.router-link-exact-active {
   align-items: center;
   gap: 16px;
 }
+.menu-setting > li > div > img {
+  filter: invert(1);
+}
 .menu-setting > li:hover > p {
   color: blue;
 }
@@ -187,7 +192,8 @@ nav a.router-link-exact-active {
   font-size: 14px;
   font-weight: 400;
   text-align: center;
-  color: #fafafa;
+  /*color: #fafafa; */
+  color: black;
 }
 .menu-setting > li > div {
   width: 32px;

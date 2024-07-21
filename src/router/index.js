@@ -1,12 +1,10 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../pages/HomePage.vue";
 import SignUp from "../pages/SignUp.vue";
 import Login from "../pages/Login.vue";
 import HomeLogin from "../pages/AppLogin.vue";
 import WishList from "../pages/WishList.vue";
+import Cart from "../pages/Cart.vue";
 
 const routes = [
   {
@@ -33,6 +31,11 @@ const routes = [
     path: "/wish-list",
     name: "wish-list",
     component: WishList,
+  },
+  {
+    path: "/cart",
+    name: "cart",
+    component: Cart,
   },
 ];
 

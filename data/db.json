@@ -187,5 +187,19 @@
       "sales": 0,
       "stock": 65
     }
+  ],
+  "user-products": [
+    {
+      "product": "HAVIT HV-G92 Gamepad",
+      "price": 160,
+      "quantity": 2,
+      "subtotal": ""
+    },
+    {
+      "product": "ASUS FHD Gaming Laptop",
+      "price": 700,
+      "quantity": 1,
+      "subtotal": ""
+    }
   ]
 }
