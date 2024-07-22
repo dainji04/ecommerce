@@ -32,7 +32,9 @@
     </div>
     <div class="flex items-center gap-40 mx-auto mt-10 mb-4 max-w-[1170px]">
       <div class="flex items-center gap-[188px]">
-        <h1 class="font-bold select-none">its'Dainji</h1>
+        <router-link to="/" class="font-bold select-none">
+          its'Dainji
+        </router-link>
         <nav class="flex gap-12">
           <router-link class="hover:underline decoration-[#ccc]" to="/">
             Home
@@ -65,7 +67,9 @@
           <router-link to="/wish-list">
             <img class="cursor-pointer" src="@/assets/fonts/heart.svg" alt="" />
           </router-link>
-          <img class="cursor-pointer" src="@/assets/fonts/cart.svg" alt="" />
+          <router-link to="/cart">
+            <img class="cursor-pointer" src="@/assets/fonts/cart.svg" alt="" />
+          </router-link>
         </div>
       </div>
     </div>

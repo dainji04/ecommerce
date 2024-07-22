@@ -48,28 +48,41 @@
           <h1 class="text-base font-semibold mb-6">Cart total</h1>
           <div class="flex justify-between border-b-2 border-[#ccc] pb-4">
             <p>Subtotal:</p>
-            <p>{{ subTotal }}$</p>
+            <p>${{ subTotal }}</p>
           </div>
           <div class="flex justify-between border-b-2 border-[#ccc] py-4">
             <p>Shipping:</p>
             <div>
               <p v-if="subTotal > 500">Free</p>
-              <p v-else>30$</p>
+              <p v-else>$30</p>
             </div>
           </div>
           <div class="flex justify-between border-b-2 border-[#ccc] py-4">
             <p>Total:</p>
             <div>
-              <p v-if="subTotal > 500">{{ subTotal }}$</p>
-              <p v-else>{{ subTotal + 30 }}$</p>
+              <p v-if="subTotal > 500">${{ subTotal }}</p>
+              <p v-else>${{ subTotal + 30 }}</p>
             </div>
           </div>
         </div>
-        <button
-          class="mt-4 bg-primary text-white font-medium py-4 px-12 rounded-md"
-        >
-          Procees to checkout
-        </button>
+
+        <div>
+          <stripe-checkout
+            ref="checkoutRef"
+            mode="payment"
+            :pk="publishableKey"
+            :line-items="lineItems"
+            :success-url="successURL"
+            :cancel-url="cancelURL"
+            @loading="(v) => (loading = v)"
+          />
+          <button
+            class="mt-4 bg-primary text-white font-medium py-4 px-12 rounded-md"
+            @click="submit"
+          >
+            procees to checkout
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -77,6 +90,7 @@
 </template>
 <script>
 import { reactive, ref } from "vue";
+import { StripeCheckout } from "@vue-stripe/vue-stripe";
 
 import HeaderLogin from "../layouts/HeaderLogin.vue";
 import Footer from "../layouts/Footer.vue";
@@ -84,6 +98,7 @@ export default {
   components: {
     HeaderLogin,
     Footer,
+    StripeCheckout,
   },
   setup() {
     const columns = [
@@ -121,6 +136,7 @@ export default {
     const formState = reactive({
       "input-number": 1,
     });
+
     return {
       formState,
       columns,
@@ -128,6 +144,28 @@ export default {
       subTotal: ref(null),
       rowSelection,
     };
+  },
+  data() {
+    // apikey stripe checkout
+    this.publishableKey =
+      "pk_test_51PfGieHMafVDos9ziDxPRny0KYFFMhIOKB3uLVu1TzbD2dFxkGO3GER3DZO0rvoZxKVUAMm4P0i1oxt3F57k4ECS00I7wcaX4t";
+    return {
+      // stripe checkout vue
+      loading: false,
+      lineItems: [
+        {
+          price: "price_1PfHcLHMafVDos9zBdhv5BYF",
+          quantity: 1,
+        },
+      ],
+      successURL: "http://localhost:8080/success",
+      cancelURL: "http://localhost:8080/error",
+    };
+  },
+  methods: {
+    submit() {
+      this.$refs.checkoutRef.redirectToCheckout();
+    },
   },
   mounted() {
     const url = "http://localhost:3000/user-products";
@@ -138,8 +176,8 @@ export default {
         this.products.forEach((product) => {
           product.subtotal = product.price * product.quantity;
           this.subTotal += product.subtotal;
-          console.log(this.subTotal);
-          product.subtotal += "$";
+          product.subtotal = "$" + product.subtotal;
+          product.price = "$" + product.price;
         });
       })
       .catch((err) => console.log("err: ", err));

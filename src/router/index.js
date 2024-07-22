@@ -5,6 +5,8 @@ import Login from "../pages/Login.vue";
 import HomeLogin from "../pages/AppLogin.vue";
 import WishList from "../pages/WishList.vue";
 import Cart from "../pages/Cart.vue";
+import Error from "../pages/Error.vue";
+import Success from "../pages/Success.vue";
 
 const routes = [
   {
@@ -36,6 +38,16 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: Cart,
+  },
+  {
+    path: "/success",
+    name: "success",
+    component: Success,
+  },
+  {
+    path: "/error",
+    name: "error",
+    component: Error,
   },
 ];
 
