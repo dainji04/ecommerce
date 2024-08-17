@@ -1,5 +1,10 @@
 <template>
-  <HeaderLogin />
+  <div v-show="boolLogin">
+    <HeaderLogin />
+  </div>
+  <div v-show="!boolLogin">
+    <Header v-show="!boolLogin" />
+  </div>
   <div class="max-w-[1140px] mx-auto">
     <div id="road-map" class="flex items-center gap-3 my-20">
       <a-breadcrumb>
@@ -66,7 +71,7 @@
           </div>
         </div>
 
-        <div>
+        <!-- <div>
           <stripe-checkout
             ref="checkoutRef"
             mode="payment"
@@ -76,13 +81,13 @@
             :cancel-url="cancelURL"
             @loading="(v) => (loading = v)"
           />
-          <button
-            class="mt-4 bg-primary text-white font-medium py-4 px-12 rounded-md"
-            @click="submit"
-          >
-            procees to checkout
-          </button>
-        </div>
+        </div> -->
+        <button
+          class="mt-4 bg-primary text-white font-medium py-4 px-12 rounded-md"
+          @click="submit"
+        >
+          procees to checkout
+        </button>
       </div>
     </div>
   </div>
@@ -93,10 +98,13 @@ import { reactive, ref } from "vue";
 import { StripeCheckout } from "@vue-stripe/vue-stripe";
 
 import HeaderLogin from "../layouts/HeaderLogin.vue";
+import Header from "../layouts/Header.vue";
+
 import Footer from "../layouts/Footer.vue";
 export default {
   components: {
     HeaderLogin,
+    Header,
     Footer,
     StripeCheckout,
   },
@@ -146,6 +154,15 @@ export default {
     };
   },
   data() {
+    onBeforeMount(() => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          this.boolLogin = true;
+        } else {
+          this.boolLogin = false;
+        }
+      });
+    });
     // apikey stripe checkout
     this.publishableKey =
       "pk_test_51PfGieHMafVDos9ziDxPRny0KYFFMhIOKB3uLVu1TzbD2dFxkGO3GER3DZO0rvoZxKVUAMm4P0i1oxt3F57k4ECS00I7wcaX4t";
@@ -160,13 +177,15 @@ export default {
       ],
       successURL: "http://localhost:8080/success",
       cancelURL: "http://localhost:8080/error",
+      // check logged
+      boolLogin: true,
     };
   },
-  methods: {
-    submit() {
-      this.$refs.checkoutRef.redirectToCheckout();
-    },
-  },
+  // methods: {
+  //   submit() {
+  //     this.$refs.checkoutRef.redirectToCheckout();
+  //   },
+  // },
   mounted() {
     const url = "http://localhost:3000/user-products";
     fetch(url)
