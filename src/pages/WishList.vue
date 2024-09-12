@@ -211,9 +211,7 @@ export default {
 
     fetch(url2)
       .then((res) => res.json())
-      .then((data) => {
-        this.items2 = data;
-      })
+      .then((data) => (this.items2 = data))
       .catch((err) => alert(err.message));
   },
   methods: {

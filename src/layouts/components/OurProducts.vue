@@ -130,7 +130,6 @@ export default {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         this.items = data;
       })
       .catch((err) => err);

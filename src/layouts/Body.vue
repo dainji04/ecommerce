@@ -8,6 +8,7 @@
     <NewArrival />
   </div>
 </template>
+
 <script setup>
 import MenuSlide from "./components/MenuSlide.vue";
 import FlashSale from "./components/FlashSale.vue";

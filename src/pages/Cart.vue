@@ -94,19 +94,19 @@
   <Footer />
 </template>
 <script>
-import { reactive, ref } from "vue";
-import { StripeCheckout } from "@vue-stripe/vue-stripe";
+import { reactive, ref, onBeforeMount } from "vue";
+// import { StripeCheckout } from "@vue-stripe/vue-stripe";
+import firebase from "firebase/compat/app";
 
 import HeaderLogin from "../layouts/HeaderLogin.vue";
 import Header from "../layouts/Header.vue";
-
 import Footer from "../layouts/Footer.vue";
 export default {
   components: {
     HeaderLogin,
     Header,
     Footer,
-    StripeCheckout,
+    // StripeCheckout,
   },
   setup() {
     const columns = [

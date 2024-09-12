@@ -180,7 +180,7 @@ export default {
   },
   mounted() {
     let targetDate = new Date();
-    targetDate.setFullYear(2024, 6, 31);
+    targetDate.setFullYear(2024, 10, 2);
     targetDate.setHours(0, 0, 0);
     this.updateTime(targetDate);
     setInterval(() => {
@@ -205,7 +205,6 @@ export default {
           return res.json();
         })
         .then((data) => {
-          console.log(data);
           this.items = data;
         })
         .catch((err) => err);

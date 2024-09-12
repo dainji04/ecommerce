@@ -39,10 +39,10 @@
           <router-link class="hover:underline decoration-[#ccc]" to="/">
             Home
           </router-link>
-          <router-link class="hover:underline decoration-[#ccc]" to="/abc">
+          <router-link class="hover:underline decoration-[#ccc]" to="/">
             Contact
           </router-link>
-          <router-link class="hover:underline decoration-[#ccc]" to="/xyz">
+          <router-link class="hover:underline decoration-[#ccc]" to="/">
             About
           </router-link>
           <router-link class="hover:underline decoration-[#ccc]" to="/login">
