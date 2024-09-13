@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import antd from "ant-design-vue";
 import firebase from "firebase/compat/app";
+import { createPinia } from "pinia";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
@@ -22,5 +23,6 @@ firebase.initializeApp(firebaseConfig);
 
 const app = createApp(App);
 app.use(antd);
+app.use(createPinia());
 app.use(router);
 app.mount("#app");

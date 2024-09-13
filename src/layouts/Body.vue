@@ -9,13 +9,50 @@
   </div>
 </template>
 
-<script setup>
+<script>
 import MenuSlide from "./components/MenuSlide.vue";
 import FlashSale from "./components/FlashSale.vue";
 import BrowseItems from "./components/BrowseItems.vue";
 import BestSelling from "./components/BestSelling.vue";
 import OurProducts from "./components/OurProducts.vue";
 import NewArrival from "./components/NewArrival.vue";
+
+import { ref, onBeforeMount } from "vue";
+import firebase from "firebase/compat/app";
+
+export default {
+  components: {
+    MenuSlide,
+    FlashSale,
+    BrowseItems,
+    BestSelling,
+    OurProducts,
+    NewArrival,
+  },
+  setup() {
+    const name = ref("");
+    onBeforeMount(() => {
+      const user = firebase.auth().currentUser;
+      console.log("user: ", user);
+      if (user) {
+        name.value = user.displayName;
+      }
+    });
+
+    const Logout = () => {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => alert("Signed out"))
+        .catch((err) => alert(err.message));
+    };
+
+    return {
+      Logout,
+      name,
+    };
+  },
+};
 </script>
 <style>
 .item .items-product {

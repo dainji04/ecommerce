@@ -1,5 +1,4 @@
 <template>
-  <Header />
   <div class="mt-[60px]">
     <div class="flex items-center gap-[90px]">
       <div class="w-[60%] pt-[75px] bg-[#CBE4E8]">
@@ -43,21 +42,12 @@
       </div>
     </div>
   </div>
-  <Footer />
 </template>
 
 <script>
 import { ref } from "vue";
 import firebase from "firebase/compat/app";
-
-import Header from "../layouts/Header.vue";
-import Footer from "../layouts/Footer.vue";
-
 export default {
-  components: {
-    Header,
-    Footer,
-  },
   setup() {
     const name = ref("");
     const email = ref("");

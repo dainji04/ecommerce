@@ -1,10 +1,4 @@
 <template>
-  <div v-show="boolLogin">
-    <HeaderLogin />
-  </div>
-  <div v-show="!boolLogin">
-    <Header v-show="!boolLogin" />
-  </div>
   <div class="max-w-[1170px] mx-auto block">
     <div class="mt-20">
       <div class="flash-sales w-full flex flex-col relative">
@@ -163,21 +157,11 @@
       </div>
     </div>
   </div>
-  <Footer />
 </template>
 <script>
-import Header from "../layouts/Header.vue";
-import HeaderLogin from "../layouts/HeaderLogin.vue";
-import Footer from "../layouts/Footer.vue";
-
 import { onBeforeMount } from "vue";
 import firebase from "firebase/compat/app";
 export default {
-  components: {
-    HeaderLogin,
-    Header,
-    Footer,
-  },
   data() {
     onBeforeMount(() => {
       firebase.auth().onAuthStateChanged((user) => {

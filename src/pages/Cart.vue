@@ -1,10 +1,4 @@
 <template>
-  <div v-show="boolLogin">
-    <HeaderLogin />
-  </div>
-  <div v-show="!boolLogin">
-    <Header v-show="!boolLogin" />
-  </div>
   <div class="max-w-[1140px] mx-auto">
     <div id="road-map" class="flex items-center gap-3 my-20">
       <a-breadcrumb>
@@ -91,23 +85,12 @@
       </div>
     </div>
   </div>
-  <Footer />
 </template>
 <script>
 import { reactive, ref, onBeforeMount } from "vue";
 // import { StripeCheckout } from "@vue-stripe/vue-stripe";
 import firebase from "firebase/compat/app";
-
-import HeaderLogin from "../layouts/HeaderLogin.vue";
-import Header from "../layouts/Header.vue";
-import Footer from "../layouts/Footer.vue";
 export default {
-  components: {
-    HeaderLogin,
-    Header,
-    Footer,
-    // StripeCheckout,
-  },
   setup() {
     const columns = [
       {

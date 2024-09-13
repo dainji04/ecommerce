@@ -1,5 +1,4 @@
 <template>
-  <Header />
   <div class="mt-[60px]">
     <div class="flex items-center gap-[90px]">
       <div class="pt-[75px] bg-[#CBE4E8] w-[60%]">
@@ -37,30 +36,28 @@
       </div>
     </div>
   </div>
-  <Footer />
 </template>
 
 <script>
-import Header from "../layouts/Header.vue";
-import Footer from "../layouts/Footer.vue";
+import { Checklogin } from "@/store/login";
 
 import { ref } from "vue";
 import firebase from "firebase/compat/app";
+import { useRouter } from "vue-router";
 export default {
-  components: {
-    Header,
-    Footer,
-  },
   setup() {
     const email = ref("");
     const pwd = ref("");
-
+    const router = useRouter();
+    const checkLog = Checklogin();
     const Login = () => {
       firebase
         .auth()
         .signInWithEmailAndPassword(email.value, pwd.value)
         .then((data) => console.log(data))
         .catch(() => alert("Email or Password is wrong!!!"));
+      router.replace("/");
+      checkLog.login = true;
     };
 
     return {
