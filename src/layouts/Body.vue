@@ -33,7 +33,6 @@ export default {
     const name = ref("");
     onBeforeMount(() => {
       const user = firebase.auth().currentUser;
-      console.log("user: ", user);
       if (user) {
         name.value = user.displayName;
       }

@@ -7,18 +7,27 @@
       <div class="w-[30%]">
         <h1 class="font-[inter] text-4xl font-medium">Create an account</h1>
         <h2 class="mt-6 mb-12">Enter your details below</h2>
-        <form @submit.prevent="Register">
+        <form @submit.prevent="validate">
           <div class="input-form">
             <input type="text" v-model="name" required />
             <label for="name">Name</label>
+            <div v-if="error.name">
+              <p>{{ error.name }}</p>
+            </div>
           </div>
           <div class="input-form">
             <input type="email" v-model="email" required />
             <label for="email">Email</label>
+            <div v-if="error.email">
+              <p>{{ error.email }}</p>
+            </div>
           </div>
           <div class="input-form">
             <input type="password" v-model="pwd" required />
             <label for="password">password</label>
+            <div v-if="error.pwd">
+              <p>{{ error.pwd }}</p>
+            </div>
           </div>
           <button
             type="submit"
@@ -47,12 +56,13 @@
 <script>
 import { ref } from "vue";
 import firebase from "firebase/compat/app";
+import { useRouter } from "vue-router";
 export default {
-  setup() {
+  data() {
     const name = ref("");
     const email = ref("");
     const pwd = ref("");
-
+    const router = useRouter();
     const Register = () => {
       firebase
         .auth()
@@ -61,9 +71,9 @@ export default {
           user.user.updateProfile({
             displayName: name.value,
           });
-          console.log(user);
         })
-        .catch((err) => alert(err.massage));
+        .catch((err) => console.log(err.massage));
+      router.replace("/");
     };
 
     return {
@@ -71,7 +81,34 @@ export default {
       name,
       email,
       pwd,
+      error: [],
     };
+  },
+  methods: {
+    minlength(value, minLength) {
+      return value.length > minLength ? true : false;
+    },
+    checkEmail(email) {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        return true;
+      }
+      return false;
+    },
+    validate() {
+      this.error = [];
+      if (!this.minlength(this.name, 5)) {
+        this.error["name"] = "name must be at least 5 characters";
+      }
+      if (!this.checkEmail(this.email)) {
+        this.error["email"] = "Entered an invalid email address!";
+      }
+      if (!this.minlength(this.pwd, 5)) {
+        this.error["pwd"] = "password must be at least 6 characters";
+      }
+      if (Object.keys(this.error).length == 0) {
+        this.Register();
+      }
+    },
   },
 };
 </script>
@@ -85,6 +122,7 @@ input {
   height: 40px;
   margin-top: 40px;
   position: relative;
+  border-bottom: 0.5px solid #000;
 }
 .input-form label {
   pointer-events: none;
@@ -105,6 +143,10 @@ input {
   background-color: transparent;
   width: 100%;
   padding: 5px 0;
-  border-bottom: 0.5px solid #000;
+}
+.input-form > div {
+  position: absolute;
+  color: red;
+  margin-top: 40px;
 }
 </style>

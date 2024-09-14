@@ -31,7 +31,7 @@
           <router-link class="hover:underline decoration-[#ccc]" to="/">
             Home
           </router-link>
-          <router-link class="hover:underline decoration-[#ccc]" to="/">
+          <router-link class="hover:underline decoration-[#ccc]" to="/contact">
             Contact
           </router-link>
           <router-link class="hover:underline decoration-[#ccc]" to="/">
@@ -130,7 +130,6 @@ export default {
       console.log(checkLog.login);
     };
     const checkLog = Checklogin();
-    console.log("chcek: ", checkLog.login);
     return {
       Logout,
       checkLog,

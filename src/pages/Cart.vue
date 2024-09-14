@@ -1,9 +1,9 @@
 <template>
-  <div class="max-w-[1140px] mx-auto">
+  <div class="max-w-[1170px] mx-auto">
     <div id="road-map" class="flex items-center gap-3 my-20">
       <a-breadcrumb>
         <a-breadcrumb-item>
-          <router-link to="/home/u"> Home </router-link>
+          <router-link to="/"> Home </router-link>
         </a-breadcrumb-item>
         <a-breadcrumb-item>Cart</a-breadcrumb-item>
       </a-breadcrumb>

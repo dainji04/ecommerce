@@ -12,3 +12,6 @@ html {
 /* body::-webkit-scrollbar {
   display: none;
 } */
+input:focus-visible {
+  outline: none;
+}
