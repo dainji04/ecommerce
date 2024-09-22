@@ -14,7 +14,7 @@
         :columns="columns"
         :data-source="products"
       >
-        <template>
+        <template #bodyCell="{ column, text }">
           <template v-if="column.dataIndex === 'name'">
             <a>{{ text }}</a>
           </template>
@@ -76,12 +76,14 @@
             @loading="(v) => (loading = v)"
           />
         </div> -->
-        <button
-          class="mt-4 bg-primary text-white font-medium py-4 px-12 rounded-md"
-          @click="submit"
-        >
-          procees to checkout
-        </button>
+        <router-link to="/checkout">
+          <button
+            class="mt-4 bg-primary text-white font-medium py-4 px-12 rounded-md"
+            @click="submit"
+          >
+            procees to checkout
+          </button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -175,12 +177,14 @@ export default {
       .then((res) => res.json())
       .then((data) => {
         this.products = data;
-        this.products.forEach((product) => {
+        this.products.forEach((product, index) => {
+          product.key = index + 1;
           product.subtotal = product.price * product.quantity;
           this.subTotal += product.subtotal;
           product.subtotal = "$" + product.subtotal;
           product.price = "$" + product.price;
         });
+        console.log(this.products);
       })
       .catch((err) => console.log("err: ", err));
   },

@@ -5,7 +5,7 @@
         <div class="w-full flex justify-between items-end gap-[87px]">
           <div class="flex flex-col gap-6">
             <div class="flex items-center gap-4">
-              <img src="@/assets/fonts/shape.svg" alt="shape" />
+              <img loading="lazy" src="@/assets/fonts/shape.svg" alt="shape" />
               <h2 class="text-primary text-base font-semibold leading-5">
                 This Month
               </h2>
@@ -40,16 +40,23 @@
           <div
             class="item w-full h-[250px] bg-grayScale rounded-md overflow-hidden outline-none border-none flex items-center justify-center relative"
           >
-            <img class="items-product p-[14px]" :src="item.img" alt="" />
+            <img
+              loading="lazy"
+              class="items-product p-[14px]"
+              :src="item.img"
+              alt=""
+            />
             <div
               class="absolute top-3 right-3 flex flex-col justify-center gap-2"
             >
               <img
+                loading="lazy"
                 class="w-8 h-8 m-[5px] p-[5px] rounded-full bg-white cursor-pointer"
                 src="@/assets/fonts/heart.svg"
                 alt=""
               />
               <img
+                loading="lazy"
                 class="w-8 h-8 m-[5px] p-[5px] rounded-full bg-white cursor-pointer"
                 src="@/assets/fonts/eye.svg"
                 alt=""
@@ -74,26 +81,31 @@
             <div class="flex gap-2">
               <div class="flex">
                 <img
+                  loading="lazy"
                   class="w-5 h-5"
                   src="@/assets/fonts/yellow-star.svg"
                   alt=""
                 />
                 <img
+                  loading="lazy"
                   class="w-5 h-5"
                   src="@/assets/fonts/yellow-star.svg"
                   alt=""
                 />
                 <img
+                  loading="lazy"
                   class="w-5 h-5"
                   src="@/assets/fonts/yellow-star.svg"
                   alt=""
                 />
                 <img
+                  loading="lazy"
                   class="w-5 h-5"
                   src="@/assets/fonts/yellow-star.svg"
                   alt=""
                 />
                 <img
+                  loading="lazy"
                   class="w-5 h-5"
                   src="@/assets/fonts/yellow-star.svg"
                   alt=""
@@ -153,6 +165,7 @@
       </div>
       <div class="relative w-[604px] h-[420px] flex items-center mr-11">
         <img
+          loading="lazy"
           class="z-10 absolute"
           src="@/assets/images/JBL_BOOMBOX_2_HERO.png"
           alt=""
@@ -165,10 +178,12 @@
   </div>
 </template>
 <script>
+import { useItemStore } from "@/store/fetchAPI";
+import { onMounted } from "vue";
 export default {
   data() {
     return {
-      items: {},
+      items: [],
     };
   },
   mounted() {

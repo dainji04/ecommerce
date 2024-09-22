@@ -5,7 +5,7 @@
         <div class="w-full flex justify-between items-end gap-[87px]">
           <div class="flex flex-col gap-6">
             <div class="flex items-center gap-4">
-              <img src="@/assets/fonts/shape.svg" alt="shape" />
+              <img loading="lazy" src="@/assets/fonts/shape.svg" alt="shape" />
               <h2 class="text-primary text-base font-semibold leading-5">
                 Categories
               </h2>
@@ -21,13 +21,19 @@
           <div class="flex items-center gap-2">
             <div class="p-[11px] bg-grayScale rounded-full cursor-pointer">
               <img
+                loading="lazy"
                 class="invert rotate-[180deg]"
                 src="@/assets/fonts/arrow-right.svg"
                 alt=""
               />
             </div>
             <div class="p-[11px] bg-grayScale rounded-full cursor-pointer">
-              <img class="invert" src="@/assets/fonts/arrow-right.svg" alt="" />
+              <img
+                loading="lazy"
+                class="invert"
+                src="@/assets/fonts/arrow-right.svg"
+                alt=""
+              />
             </div>
           </div>
         </div>
@@ -36,27 +42,37 @@
   </div>
   <div class="list-media flex gap-8 mt-[60px]">
     <div>
-      <img src="@/assets/fonts/phones.svg" alt="" />
+      <img loading="lazy" src="@/assets/fonts/phones.svg" alt="" />
       <p>Phones</p>
     </div>
     <div>
-      <img src="@/assets/fonts/computer.svg" alt="" />
+      <img loading="lazy" src="@/assets/fonts/computer.svg" alt="" />
       <p>computer</p>
     </div>
     <div>
-      <img class="w-14 h-14" src="@/assets/fonts/appleWatch.svg" alt="" />
+      <img
+        loading="lazy"
+        class="w-14 h-14"
+        src="@/assets/fonts/appleWatch.svg"
+        alt=""
+      />
       <p>appleWatch</p>
     </div>
     <div :class="clicked + 3">
-      <img class="invert" src="@/assets/fonts/camera.svg" alt="" />
+      <img
+        loading="lazy"
+        class="invert"
+        src="@/assets/fonts/camera.svg"
+        alt=""
+      />
       <p>camera</p>
     </div>
     <div>
-      <img src="@/assets/fonts/headphones.svg" alt="" />
+      <img loading="lazy" src="@/assets/fonts/headphones.svg" alt="" />
       <p>headphones</p>
     </div>
     <div>
-      <img src="@/assets/fonts/gaming.svg" alt="" />
+      <img loading="lazy" src="@/assets/fonts/gaming.svg" alt="" />
       <p>gaming</p>
     </div>
   </div>

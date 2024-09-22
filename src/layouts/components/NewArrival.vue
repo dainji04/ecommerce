@@ -5,7 +5,7 @@
         <div class="w-full flex justify-between items-end gap-[87px]">
           <div class="flex flex-col gap-6">
             <div class="flex items-center gap-4">
-              <img src="@/assets/fonts/shape.svg" alt="shape" />
+              <img loading="lazy" src="@/assets/fonts/shape.svg" alt="shape" />
               <h2 class="text-primary text-base font-semibold leading-5">
                 Featured
               </h2>
@@ -25,6 +25,7 @@
   <div class="grid grid-cols-2 gap-5">
     <div class="bg-black relative flex justify-center">
       <img
+        loading="lazy"
         class="absolute bottom-0 z-0"
         src="@/assets/images/ps5-playstation5.png"
         alt=""
@@ -42,6 +43,7 @@
     <div class="grid grid-rows-2 gap-5">
       <div class="bg-black flex relative">
         <img
+          loading="lazy"
           class="ml-auto"
           src="@/assets/images/woman-collections.png"
           alt=""
@@ -58,7 +60,7 @@
       </div>
       <div class="grid grid-cols-2 gap-5">
         <div class="bg-black flex items-center justify-center relative">
-          <img src="@/assets/images/speakers.png" alt="" />
+          <img loading="lazy" src="@/assets/images/speakers.png" alt="" />
           <div class="text-white absolute bottom-6 left-6 w-[255px] grid gap-2">
             <h2 class="text-2xl font-[inter] font-semibold">Speakers</h2>
             <p class="text-[14px]">Amazon wireless speakers</p>
@@ -66,7 +68,7 @@
           </div>
         </div>
         <div class="bg-black flex items-center justify-center relative">
-          <img src="@/assets/images/gucci_perfume.png" alt="" />
+          <img loading="lazy" src="@/assets/images/gucci_perfume.png" alt="" />
           <div class="text-white absolute bottom-6 left-6 w-[255px] grid gap-2">
             <h2 class="text-2xl font-[inter] font-semibold">Perfume</h2>
             <p class="text-[14px]">GUCCI INTENSE OUD EDP</p>
@@ -79,8 +81,18 @@
   <div class="mt-[140px] flex items-center justify-center gap-[88px]">
     <div class="flex flex-col justify-center items-center gap-6">
       <div class="w-20 h-20 relative flex justify-center items-center">
-        <img class="absolute" src="@/assets/fonts/borderArrival.svg" alt="" />
-        <img class="absolute" src="@/assets/fonts/truck.svg" alt="" />
+        <img
+          loading="lazy"
+          class="absolute"
+          src="@/assets/fonts/borderArrival.svg"
+          alt=""
+        />
+        <img
+          loading="lazy"
+          class="absolute"
+          src="@/assets/fonts/truck.svg"
+          alt=""
+        />
       </div>
       <div class="grid gap-2 justify-center items-center">
         <h1 class="text-xl font-semibold">FREE AND FAST DELIVERY</h1>
@@ -89,8 +101,18 @@
     </div>
     <div class="flex flex-col justify-center items-center gap-6">
       <div class="w-20 h-20 relative flex justify-center items-center">
-        <img class="absolute" src="@/assets/fonts/borderArrival.svg" alt="" />
-        <img class="absolute" src="@/assets/fonts/headphones2.svg" alt="" />
+        <img
+          loading="lazy"
+          class="absolute"
+          src="@/assets/fonts/borderArrival.svg"
+          alt=""
+        />
+        <img
+          loading="lazy"
+          class="absolute"
+          src="@/assets/fonts/headphones2.svg"
+          alt=""
+        />
       </div>
       <div class="grid gap-2 justify-center items-center">
         <h1 class="text-xl font-semibold">24/7 CUSTOMER SERVICE</h1>
@@ -99,8 +121,18 @@
     </div>
     <div class="flex flex-col justify-center items-center gap-6">
       <div class="w-20 h-20 relative flex justify-center items-center">
-        <img class="absolute" src="@/assets/fonts/borderArrival.svg" alt="" />
-        <img class="absolute" src="@/assets/fonts/security.svg" alt="" />
+        <img
+          loading="lazy"
+          class="absolute"
+          src="@/assets/fonts/borderArrival.svg"
+          alt=""
+        />
+        <img
+          loading="lazy"
+          class="absolute"
+          src="@/assets/fonts/security.svg"
+          alt=""
+        />
       </div>
       <div class="grid gap-2 justify-center items-center">
         <h1 class="text-xl font-semibold">MONEY BACK GUARANTEE</h1>

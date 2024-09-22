@@ -70,7 +70,6 @@ export default {
           alert("Email or Password is wrong!!!");
         });
     };
-
     return {
       Login,
       email,

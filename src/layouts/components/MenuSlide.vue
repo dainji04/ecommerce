@@ -7,6 +7,7 @@
         >
           <h3>Woman's Fashion</h3>
           <img
+            loading="lazy"
             class="rotate-[-90deg] invert"
             src="@/assets/fonts/down-arrow.svg"
             alt=""
@@ -17,6 +18,7 @@
         >
           <h3>Men's Fashion</h3>
           <img
+            loading="lazy"
             class="rotate-[-90deg] invert"
             src="@/assets/fonts/down-arrow.svg"
             alt=""
@@ -51,7 +53,7 @@
     >
       <div class="ml-16 mt-[58px] text-white mr-10">
         <div class="flex items-center gap-6">
-          <img src="@/assets/images/logo-apple.png" alt="" />
+          <img loading="lazy" src="@/assets/images/logo-apple.png" alt="" />
           <h3>Iphone 14 series</h3>
         </div>
         <div class="mt-5 w-[300px]">
@@ -65,21 +67,22 @@
           <a
             href="#"
             class="flex items-center gap-2 mt-[22px] hover:underline decoration-[#ccc]"
-            >Shop Now <img src="@/assets/fonts/arrow-right.svg" alt=""
+            >Shop Now
+            <img loading="lazy" src="@/assets/fonts/arrow-right.svg" alt=""
           /></a>
         </div>
       </div>
       <div class="w-[496px] h-[352px] mt-4 overflow-hidden">
-        <img src="@/assets/images/slider.png" alt="" />
+        <img loading="lazy" src="@/assets/images/slider.png" alt="" />
       </div>
       <div
         class="flex items-center gap-3 absolute bottom-0 cursor-pointer mb-2"
       >
-        <img src="@/assets/fonts/dot-slide.svg" alt="" />
-        <img src="@/assets/fonts/dot-slide.svg" alt="" />
-        <img src="@/assets/fonts/red-dot-slide.svg" alt="" />
-        <img src="@/assets/fonts/dot-slide.svg" alt="" />
-        <img src="@/assets/fonts/dot-slide.svg" alt="" />
+        <img loading="lazy" src="@/assets/fonts/dot-slide.svg" alt="" />
+        <img loading="lazy" src="@/assets/fonts/dot-slide.svg" alt="" />
+        <img loading="lazy" src="@/assets/fonts/red-dot-slide.svg" alt="" />
+        <img loading="lazy" src="@/assets/fonts/dot-slide.svg" alt="" />
+        <img loading="lazy" src="@/assets/fonts/dot-slide.svg" alt="" />
       </div>
     </div>
   </div>
