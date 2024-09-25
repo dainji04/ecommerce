@@ -5,9 +5,10 @@ import SignUp from "../pages/SignUp.vue";
 import Login from "../pages/Login.vue";
 import WishList from "../pages/WishList.vue";
 import Cart from "../pages/Cart.vue";
-import Error from "../pages/Error.vue";
-import Success from "../pages/Success.vue";
-import Checkout from "@/pages/Checkout.vue";
+import notFound from "../pages/notFound.vue";
+import Checkout from "../pages/Checkout.vue";
+import itemsDetails from "../pages/itemsDetails.vue";
+import UserProfile from "../pages/UserProfile.vue";
 
 const routes = [
   {
@@ -18,7 +19,7 @@ const routes = [
   {
     path: "/contact",
     name: "contact",
-    component: Contact,
+    component: () => import("../pages/Contact.vue"),
   },
   {
     path: "/sign-up",
@@ -41,19 +42,25 @@ const routes = [
     component: Cart,
   },
   {
-    path: "/success",
-    name: "success",
-    component: Success,
-  },
-  {
-    path: "/error",
-    name: "error",
-    component: Error,
+    path: "/:catchAll(.*)",
+    name: "notfound",
+    component: notFound,
   },
   {
     path: "/checkout",
     name: "checkout",
     component: Checkout,
+  },
+  {
+    path: "/:nameList/:id",
+    name: "itemsDetails",
+    component: itemsDetails,
+    props: true, // Pass route parameters as props to the component
+  },
+  {
+    path: "/user/profile",
+    name: "userProfile",
+    component: UserProfile,
   },
 ];
 

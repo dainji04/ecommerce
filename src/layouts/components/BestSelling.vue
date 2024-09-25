@@ -37,83 +37,91 @@
           v-for="item in items"
           :key="item.id"
         >
-          <div
-            class="item w-full h-[250px] bg-grayScale rounded-md overflow-hidden outline-none border-none flex items-center justify-center relative"
+          <router-link
+            :to="{
+              name: 'itemsDetails',
+              params: { id: item.id, nameList: nameList },
+            }"
           >
-            <img
-              loading="lazy"
-              class="items-product p-[14px]"
-              :src="item.img"
-              alt=""
-            />
             <div
-              class="absolute top-3 right-3 flex flex-col justify-center gap-2"
+              class="item w-full h-[250px] bg-grayScale rounded-md overflow-hidden outline-none border-none flex items-center justify-center relative"
             >
               <img
                 loading="lazy"
-                class="w-8 h-8 m-[5px] p-[5px] rounded-full bg-white cursor-pointer"
-                src="@/assets/fonts/heart.svg"
+                class="items-product p-[14px]"
+                :src="item.img"
                 alt=""
               />
-              <img
-                loading="lazy"
-                class="w-8 h-8 m-[5px] p-[5px] rounded-full bg-white cursor-pointer"
-                src="@/assets/fonts/eye.svg"
-                alt=""
-              />
-            </div>
-            <div
-              class="add-to-cart absolute bottom-0 left-50% w-full py-2 flex items-center justify-center bg-black"
-            >
-              <a href="#" class="text-white">Add To Cart</a>
-            </div>
-          </div>
-          <div class="flex flex-col gap-2">
-            <h2 class="font-semibold">{{ item.name }}</h2>
-            <div class="flex items-center gap-3">
-              <p class="text-primary font-semibold">
-                {{ calculatorSales(item.price, item.sales) }}
-              </p>
-              <p class="opacity-50 font-semibold line-through">
-                ${{ item.price }}
-              </p>
-            </div>
-            <div class="flex gap-2">
-              <div class="flex">
+              <div
+                class="absolute top-3 right-3 flex flex-col justify-center gap-2"
+              >
                 <img
                   loading="lazy"
-                  class="w-5 h-5"
-                  src="@/assets/fonts/yellow-star.svg"
+                  class="w-8 h-8 m-[5px] p-[5px] rounded-full bg-white cursor-pointer"
+                  src="@/assets/fonts/heart.svg"
                   alt=""
                 />
                 <img
                   loading="lazy"
-                  class="w-5 h-5"
-                  src="@/assets/fonts/yellow-star.svg"
-                  alt=""
-                />
-                <img
-                  loading="lazy"
-                  class="w-5 h-5"
-                  src="@/assets/fonts/yellow-star.svg"
-                  alt=""
-                />
-                <img
-                  loading="lazy"
-                  class="w-5 h-5"
-                  src="@/assets/fonts/yellow-star.svg"
-                  alt=""
-                />
-                <img
-                  loading="lazy"
-                  class="w-5 h-5"
-                  src="@/assets/fonts/yellow-star.svg"
+                  class="w-8 h-8 m-[5px] p-[5px] rounded-full bg-white cursor-pointer"
+                  src="@/assets/fonts/eye.svg"
                   alt=""
                 />
               </div>
-              <p class="opacity-50">({{ item.stock }})</p>
+              <div
+                class="add-to-cart absolute bottom-0 left-50% w-full py-2 flex items-center justify-center bg-black text-white"
+                @click.stop.prevent="addToCart"
+              >
+                Add To Cart
+              </div>
             </div>
-          </div>
+            <div class="flex flex-col gap-2">
+              <h2 class="font-semibold">{{ item.name }}</h2>
+              <div class="flex items-center gap-3">
+                <p class="text-primary font-semibold">
+                  {{ calculatorSales(item.price, item.sales) }}
+                </p>
+                <p class="opacity-50 font-semibold line-through">
+                  ${{ item.price }}
+                </p>
+              </div>
+              <div class="flex gap-2">
+                <div class="flex">
+                  <img
+                    loading="lazy"
+                    class="w-5 h-5"
+                    src="@/assets/fonts/yellow-star.svg"
+                    alt=""
+                  />
+                  <img
+                    loading="lazy"
+                    class="w-5 h-5"
+                    src="@/assets/fonts/yellow-star.svg"
+                    alt=""
+                  />
+                  <img
+                    loading="lazy"
+                    class="w-5 h-5"
+                    src="@/assets/fonts/yellow-star.svg"
+                    alt=""
+                  />
+                  <img
+                    loading="lazy"
+                    class="w-5 h-5"
+                    src="@/assets/fonts/yellow-star.svg"
+                    alt=""
+                  />
+                  <img
+                    loading="lazy"
+                    class="w-5 h-5"
+                    src="@/assets/fonts/yellow-star.svg"
+                    alt=""
+                  />
+                </div>
+                <p class="opacity-50">({{ item.stock }})</p>
+              </div>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -178,20 +186,17 @@
   </div>
 </template>
 <script>
-import { useItemStore } from "@/store/fetchAPI";
-import { onMounted } from "vue";
+import useFetch from "@/store/fetchAPI";
 export default {
   data() {
+    const nameList = "best-sell";
+    const { listItems, fetchData } = useFetch();
+    fetchData(nameList);
+
     return {
-      items: [],
+      items: listItems,
+      nameList,
     };
-  },
-  mounted() {
-    const url = "http://localhost:3000/best-sell";
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => (this.items = data))
-      .catch((err) => console.log(err));
   },
   methods: {
     calculatorSales(originalPrice, discount) {
@@ -199,6 +204,9 @@ export default {
       let priceSaled = originalPrice * discountPercent;
       let resultPrice = originalPrice - priceSaled;
       return resultPrice.toFixed(2);
+    },
+    addToCart() {
+      alert("add success!");
     },
   },
 };

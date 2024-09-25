@@ -5,7 +5,9 @@
         <a-breadcrumb-item>
           <router-link to="/"> Home </router-link>
         </a-breadcrumb-item>
-        <a-breadcrumb-item>Cart</a-breadcrumb-item>
+        <a-breadcrumb-item>
+          <router-link to="/cart">Cart</router-link>
+        </a-breadcrumb-item>
         <a-breadcrumb-item>Checkout</a-breadcrumb-item>
       </a-breadcrumb>
     </div>
@@ -24,7 +26,7 @@
                 First Name
               </label>
               <input
-                class="bg-[#F5F5F5] py-[13px]"
+                class="bg-[#F5F5F5] py-[13px] pl-2"
                 type="text"
                 v-model="formInput.name"
               />
@@ -38,7 +40,7 @@
                 Street Address
               </label>
               <input
-                class="bg-[#F5F5F5] py-[13px]"
+                class="bg-[#F5F5F5] py-[13px] pl-2"
                 type="text"
                 v-model="formInput.address"
               />
@@ -51,7 +53,7 @@
                 Apartment, floor, etc(optional)
               </label>
               <input
-                class="bg-[#F5F5F5] py-[13px]"
+                class="bg-[#F5F5F5] py-[13px] pl-2"
                 type="text"
                 v-model="formInput.optional"
               />
@@ -65,7 +67,7 @@
                 Phone Number <label class="text-red-700">*</label>
               </label>
               <input
-                class="bg-[#F5F5F5] py-[13px]"
+                class="bg-[#F5F5F5] py-[13px] pl-2"
                 type="tel"
                 pattern="[0-9]{10}"
                 max-length="10"
@@ -81,7 +83,7 @@
                 Email Address
               </label>
               <input
-                class="bg-[#F5F5F5] py-[13px]"
+                class="bg-[#F5F5F5] py-[13px] pl-2"
                 type="email"
                 v-model="formInput.email"
               />

@@ -77,7 +77,11 @@
                   <div>
                     <img src="@/assets/fonts/profile2.svg" alt="" />
                   </div>
-                  <p>Manage My Account</p>
+                  <p>
+                    <router-link to="/user/profile">
+                      Manage My Account
+                    </router-link>
+                  </p>
                 </li>
                 <li>
                   <div>

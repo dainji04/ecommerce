@@ -1,6 +1,8 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import firebase from "firebase/compat/app";
+import "firebase/auth";
+
 import { onBeforeMount } from "vue";
 
 export const Checklogin = defineStore("user", () => {
@@ -17,7 +19,6 @@ export const Checklogin = defineStore("user", () => {
       });
     });
   };
-
   return {
     login,
     userCheck,

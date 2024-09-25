@@ -138,39 +138,7 @@ export default {
       rowSelection,
     };
   },
-  data() {
-    onBeforeMount(() => {
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          this.boolLogin = true;
-        } else {
-          this.boolLogin = false;
-        }
-      });
-    });
-    // apikey stripe checkout
-    this.publishableKey =
-      "pk_test_51PfGieHMafVDos9ziDxPRny0KYFFMhIOKB3uLVu1TzbD2dFxkGO3GER3DZO0rvoZxKVUAMm4P0i1oxt3F57k4ECS00I7wcaX4t";
-    return {
-      // stripe checkout vue
-      loading: false,
-      lineItems: [
-        {
-          price: "price_1PfHcLHMafVDos9zBdhv5BYF",
-          quantity: 1,
-        },
-      ],
-      successURL: "http://localhost:8080/success",
-      cancelURL: "http://localhost:8080/error",
-      // check logged
-      boolLogin: true,
-    };
-  },
-  // methods: {
-  //   submit() {
-  //     this.$refs.checkoutRef.redirectToCheckout();
-  //   },
-  // },
+
   mounted() {
     const url = "http://localhost:3000/user-products";
     fetch(url)
@@ -184,7 +152,6 @@ export default {
           product.subtotal = "$" + product.subtotal;
           product.price = "$" + product.price;
         });
-        console.log(this.products);
       })
       .catch((err) => console.log("err: ", err));
   },
