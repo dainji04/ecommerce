@@ -1,14 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+
 import HomePage from "../layouts/HomePage.vue";
-import Contact from "../pages/Contact.vue";
-import SignUp from "../pages/SignUp.vue";
-import Login from "../pages/Login.vue";
-import WishList from "../pages/WishList.vue";
-import Cart from "../pages/Cart.vue";
-import notFound from "../pages/notFound.vue";
-import Checkout from "../pages/Checkout.vue";
-import itemsDetails from "../pages/itemsDetails.vue";
-import UserProfile from "../pages/UserProfile.vue";
 
 const routes = [
   {
@@ -24,43 +16,43 @@ const routes = [
   {
     path: "/sign-up",
     name: "sign-up",
-    component: SignUp,
+    component: () => import("../pages/SignUp.vue"),
   },
   {
     path: "/login",
     name: "login",
-    component: Login,
+    component: () => import("../pages/Login.vue"),
   },
   {
     path: "/wish-list",
     name: "wish-list",
-    component: WishList,
+    component: () => import("../pages/WishList.vue"),
   },
   {
     path: "/cart",
     name: "cart",
-    component: Cart,
+    component: () => import("../pages/Cart.vue"),
   },
   {
     path: "/:catchAll(.*)",
     name: "notfound",
-    component: notFound,
+    component: () => import("../pages/notFound.vue"),
   },
   {
     path: "/checkout",
     name: "checkout",
-    component: Checkout,
+    component: () => import("../pages/Checkout.vue"),
   },
   {
     path: "/:nameList/:id",
     name: "itemsDetails",
-    component: itemsDetails,
+    component: () => import("../pages/itemsDetails.vue"),
     props: true, // Pass route parameters as props to the component
   },
   {
     path: "/user/profile",
     name: "userProfile",
-    component: UserProfile,
+    component: () => import("../pages/UserProfile.vue"),
   },
 ];
 

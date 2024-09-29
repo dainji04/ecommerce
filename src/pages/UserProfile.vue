@@ -62,28 +62,25 @@
             <input type="text" v-model="address" :class="inputStyle" />
           </div>
         </div>
-        <div>
+        <div class="mt-6 float-right">
           <button
-            class="bg-primary px-5 py-10"
+            class="bg-primary px-12 py-4 rounded text-white font-medium"
             @click="toggleEditMode"
             v-show="showEditBtn"
           >
             Edit Informations
           </button>
-          <button
-            class="bg-primary px-5 py-10"
-            @click="toggleEditMode"
-            v-show="showUpdateBtn"
-          >
-            cancel
-          </button>
-          <button
-            class="bg-primary px-5 py-10"
-            @click="updateUserProfile"
-            v-show="showUpdateBtn"
-          >
-            updateProfile
-          </button>
+          <div class="flex items-center rounded gap-6" v-show="showUpdateBtn">
+            <button class="bg-gray-100 px-5 py-4" @click="toggleEditMode">
+              cancel
+            </button>
+            <button
+              class="bg-primary px-12 py-4 rounded text-white font-medium"
+              @click="updateUserProfile"
+            >
+              updateProfile
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -92,6 +89,7 @@
 <script>
 import firebase from "firebase/compat/app";
 import "firebase/auth";
+
 export default {
   data() {
     return {
@@ -105,29 +103,34 @@ export default {
       address: "",
     };
   },
-
   methods: {
     toggleEditMode() {
       if (this.showEditBtn) {
         const user = firebase.auth().currentUser;
+        console.log(1);
 
         let name = user.displayName;
         this.email = user.email;
         this.phoneNumber = user.phoneNumber;
-        for (var i = name.length; i >= 0; i--) {
-          if (name[i] == " ") {
-            for (var j = i; j < name.length; j++) {
-              this.lastName += name[j];
+
+        if (name) {
+          for (var i = name.length; i >= 0; i--) {
+            if (name[i] == " ") {
+              for (var j = i; j < name.length; j++) {
+                this.lastName += name[j];
+              }
+              for (var j = 0; j < i; j++) {
+                this.firstName += name[j];
+              }
+              break;
             }
-            for (var j = 0; j < i; j++) {
-              this.firstName += name[j];
-            }
-            break;
           }
         }
+
         this.inputStyle = "select";
       } else {
         this.resetInput();
+        this.inputStyle = "select";
       }
       this.showUpdateBtn = !this.showUpdateBtn;
       this.showEditBtn = !this.showEditBtn;
@@ -137,7 +140,7 @@ export default {
       this.firstName = "";
       this.lastName = "";
       this.email = "";
-      this.phoneNumber = "";
+      this.phoneNumber = "0907165254";
       this.address = "";
     },
     updateUserProfile() {
@@ -169,6 +172,7 @@ export default {
   padding: 13px 8px 13px 0;
   pointer-events: none;
 }
+
 .select {
   background-color: #f5f5f5;
   padding: 13px 8px 13px 0;
