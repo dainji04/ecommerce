@@ -41,6 +41,7 @@
               <img class="items-product p-[14px]" :src="item.img" alt="" />
               <div
                 class="absolute top-3 right-3 flex flex-col justify-center gap-2"
+                @click.stop.prevent="deleteData(nameList, item.id)"
               >
                 <img
                   class="w-8 h-8 m-[5px] p-[5px] rounded-full bg-white cursor-pointer"
@@ -70,14 +71,15 @@
 import useFetch from "@/store/fetchAPI";
 export default {
   data() {
-    const nameList = "our-products";
-    const { listItems, lengthList, fetchData } = useFetch();
+    const nameList = "wish-list";
+    const { listItems, lengthList, fetchData, deleteData } = useFetch();
     fetchData(nameList);
 
     return {
       items: listItems,
       nameList,
       lengthItems: lengthList,
+      deleteData,
     };
   },
 };

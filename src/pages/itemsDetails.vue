@@ -253,6 +253,7 @@ export default {
   data() {
     const { listItems, fetchData } = useFetch();
     fetchData("flash-sales");
+    console.log(this.nameList);
     return {
       item: null,
       relatedItems: listItems,

@@ -54,25 +54,24 @@
               />
               <div
                 class="absolute top-3 right-3 flex flex-col justify-center gap-2"
+                @click.stop.prevent="addToWishList(item, nameList)"
               >
                 <img
                   loading="lazy"
-                  class="w-8 h-8 m-[5px] p-[5px] rounded-full bg-white cursor-pointer"
+                  class="w-12 h-12 m-[5px] p-[5px] rounded-full bg-white cursor-pointer"
                   src="@/assets/fonts/heart.svg"
-                  alt=""
-                />
-                <img
-                  loading="lazy"
-                  class="w-8 h-8 m-[5px] p-[5px] rounded-full bg-white cursor-pointer"
-                  src="@/assets/fonts/eye.svg"
                   alt=""
                 />
               </div>
               <div
                 class="add-to-cart absolute bottom-0 left-50% w-full py-2 flex items-center justify-center bg-black text-white"
-                @click.stop.prevent="addToCart"
               >
-                Add To Cart
+                <a
+                  @click.stop.prevent="addToCart(item, nameList)"
+                  class="text-white w-full flex justify-center items-center hover:text-red-400"
+                >
+                  Add To Cart
+                </a>
               </div>
             </div>
             <div class="flex flex-col gap-2">
@@ -190,12 +189,14 @@ import useFetch from "@/store/fetchAPI";
 export default {
   data() {
     const nameList = "best-sell";
-    const { listItems, fetchData } = useFetch();
+    const { listItems, fetchData, addToCart, addToWishList } = useFetch();
     fetchData(nameList);
 
     return {
       items: listItems,
       nameList,
+      addToCart,
+      addToWishList,
     };
   },
   methods: {
@@ -204,9 +205,6 @@ export default {
       let priceSaled = originalPrice * discountPercent;
       let resultPrice = originalPrice - priceSaled;
       return resultPrice.toFixed(2);
-    },
-    addToCart() {
-      alert("add success!");
     },
   },
 };
