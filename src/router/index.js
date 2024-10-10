@@ -45,6 +45,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "cart" */ "../pages/Cart.vue"),
   },
   {
+    path: "/complete-order",
+    name: "complete-order",
+    component: () =>
+      import(/* webpackChunkName: "complete" */ "../pages/OrderComplete.vue"),
+  },
+  {
     path: "/:catchAll(.*)",
     name: "notfound",
     component: () =>

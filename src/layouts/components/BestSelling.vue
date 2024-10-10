@@ -1,29 +1,25 @@
 <template>
-  <div>
-    <div class="flash-sales w-full flex flex-col relative mt-20">
-      <div class="w-full flex items-end justify-between">
-        <div class="w-full flex justify-between items-end gap-[87px]">
-          <div class="flex flex-col gap-6">
-            <div class="flex items-center gap-4">
-              <img loading="lazy" src="@/assets/fonts/shape.svg" alt="shape" />
-              <h2 class="text-primary text-base font-semibold leading-5">
-                This Month
-              </h2>
-            </div>
-            <div>
-              <h1
-                class="font-[inter] text-4xl font-semibold leading-[48px] tracking-[1.44px]"
-              >
-                Best Selling Products
-              </h1>
-            </div>
+  <div class="flash-sales w-full flex flex-col relative mt-20">
+    <div class="w-full flex items-end justify-between">
+      <div class="w-full flex justify-between items-end gap-[87px]">
+        <div class="flex flex-col gap-6">
+          <div class="flex items-center gap-4">
+            <img loading="lazy" src="@/assets/fonts/shape.svg" alt="shape" />
+            <h2 class="text-primary text-base font-semibold leading-5">
+              This Month
+            </h2>
           </div>
-          <div class="flex items-center gap-2">
-            <div
-              class="px-12 py-4 font-medium bg-primary rounded-md text-white"
+          <div>
+            <h1
+              class="font-[inter] text-4xl font-semibold leading-[48px] tracking-[1.44px]"
             >
-              View All
-            </div>
+              Best Selling Products
+            </h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="px-12 py-4 font-medium bg-primary rounded-md text-white">
+            View All
           </div>
         </div>
       </div>
@@ -55,10 +51,11 @@
               <div
                 class="absolute top-3 right-3 flex flex-col justify-center gap-2"
                 @click.stop.prevent="addToWishList(item, nameList)"
+                @click="() => open('wish list')"
               >
                 <img
                   loading="lazy"
-                  class="w-12 h-12 m-[5px] p-[5px] rounded-full bg-white cursor-pointer"
+                  class="w-12 h-12 m-[5px] p-[5px] rounded-full bg-white hover:invert cursor-pointer"
                   src="@/assets/fonts/heart.svg"
                   alt=""
                 />
@@ -68,6 +65,7 @@
               >
                 <a
                   @click.stop.prevent="addToCart(item, nameList)"
+                  @click="() => open('cart')"
                   class="text-white w-full flex justify-center items-center hover:text-red-400"
                 >
                   Add To Cart
@@ -183,9 +181,25 @@
       </div>
     </div>
   </div>
+
+  <contextHolder />
 </template>
+
+<script setup>
+import { notification } from "ant-design-vue";
+const [api, contextHolder] = notification.useNotification();
+const open = (placement) => openNotification(placement);
+const openNotification = (placement) => {
+  api.success({
+    message: `Added success`,
+    description: `click ${placement} to view item`,
+  });
+};
+</script>
+
 <script>
 import useFetch from "@/store/fetchAPI";
+
 export default {
   data() {
     const nameList = "best-sell";

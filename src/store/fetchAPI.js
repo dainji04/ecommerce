@@ -86,6 +86,7 @@ export default function () {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("delete is failed");
+      console.log("deleted");
     } catch (error) {
       console.log(error);
     }

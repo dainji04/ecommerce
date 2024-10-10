@@ -70,10 +70,11 @@
               <div
                 class="absolute top-3 right-3 flex flex-col justify-center gap-2"
                 @click.stop.prevent="addToWishList(item, nameList)"
+                @click="() => open('wish list')"
               >
                 <img
                   loading="lazy"
-                  class="w-12 h-12 m-[5px] p-[5px] rounded-full bg-white cursor-pointer"
+                  class="w-12 h-12 m-[5px] p-[5px] rounded-full bg-white hover:invert cursor-pointer"
                   src="@/assets/fonts/heart.svg"
                   alt=""
                 />
@@ -83,6 +84,7 @@
               >
                 <a
                   @click.stop.prevent="addToCart(item, nameList)"
+                  @click="() => open('cart')"
                   class="text-white w-full flex justify-center items-center hover:text-red-400"
                 >
                   Add To Cart
@@ -140,7 +142,21 @@
       </div>
     </div>
   </div>
+  <contextHolder />
 </template>
+
+<script setup>
+import { notification } from "ant-design-vue";
+const [api, contextHolder] = notification.useNotification();
+const open = (placement) => openNotification(placement);
+const openNotification = (placement) => {
+  api.success({
+    message: `Added success`,
+    description: `click ${placement} to view item`,
+  });
+};
+</script>
+
 <script>
 import useFetch from "@/store/fetchAPI";
 export default {
