@@ -35,11 +35,71 @@
           </button>
           <div
             :class="isHidden"
-            class="fixed top-0 left-0 right-0 bottom-0 bg-white w-[320px] max-w-[100%] z-20 rounded-tr-3xl rounded-br-3xl shadow-2xl display"
+            class="fixed top-0 left-0 right-0 bottom-0 p-6 bg-white w-[320px] max-w-[100%] z-20 rounded-tr-3xl rounded-br-3xl shadow-2xl display"
           >
-            <!-- <ul class="bg-white text-black">
-        <li>hello</li>
-      </ul> -->
+            <div class="mb-4">
+              <button>
+                <img
+                  class="w-6 h-6 invert rotate-180"
+                  src="@/assets/fonts/arrow-right.svg"
+                  alt=""
+                  @click="toggleMenu()"
+                />
+              </button>
+            </div>
+            <ul class="grid gap-3">
+              <li>
+                <router-link to="cart" class="flex gap-3 items-center">
+                  <img src="@/assets/fonts/cart.svg" alt="" />
+                  <span class="nav-btn__title">Cart</span>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/wish-list" class="flex items-center gap-3">
+                  <img src="@/assets/fonts/heart.svg" alt="" />
+                  <span class="nav-btn__title">Favorite</span>
+                </router-link>
+              </li>
+              <li>
+                <router-link class="hover:underline decoration-[#ccc]" to="/">
+                  Home
+                </router-link>
+              </li>
+              <li>
+                <router-link
+                  class="hover:underline decoration-[#ccc]"
+                  to="/contact"
+                >
+                  Contact
+                </router-link>
+              </li>
+              <li>
+                <router-link
+                  class="hover:underline decoration-[#ccc]"
+                  to="/about"
+                >
+                  About
+                </router-link>
+              </li>
+              <li>
+                <router-link
+                  class="hover:underline decoration-[#ccc]"
+                  to="/login"
+                  v-show="!checkLog.login"
+                >
+                  Login
+                </router-link>
+              </li>
+              <li>
+                <router-link
+                  class="hover:underline decoration-[#ccc]"
+                  to="/sign-up"
+                  v-show="!checkLog.login"
+                >
+                  Sign Up
+                </router-link>
+              </li>
+            </ul>
           </div>
           <div
             class="navbar__overlay fixed top-0 left-0 right-0 bottom-0 bg-black opacity-0 invisible z-10"
@@ -260,5 +320,11 @@ nav a.router-link-exact-active {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 739px) {
+  .menu-setting {
+    background-color: #fff;
+  }
 }
 </style>
