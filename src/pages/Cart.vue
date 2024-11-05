@@ -29,7 +29,7 @@
         </template>
       </a-table>
     </div>
-    <div class="flex justify-between">
+    <div class="flex justify-between mt-3">
       <button class="border border-solid border-[#ccc] rounded-lg py-3 px-6">
         Return to shop
       </button>
