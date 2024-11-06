@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[1170px] mx-auto">
+  <div class="max-w-[1170px] mx-auto max-tablet:mx-3">
     <div id="road-map" class="flex items-center gap-3 my-20">
       <a-breadcrumb>
         <a-breadcrumb-item>
@@ -15,8 +15,8 @@
     <div>
       <h3 class="font-medium text-4xl">Billing Details</h3>
       <form @submit.prevent="submit">
-        <div class="mt-12 flex justify-between">
-          <div class="flex flex-col gap-8 w-[470px]">
+        <div class="mt-12 flex max-tablet:flex-col justify-between">
+          <div class="flex flex-col gap-8 w-[470px] max-tablet:w-full">
             <div class="flex flex-col gap-2">
               <label
                 for="FirstName"

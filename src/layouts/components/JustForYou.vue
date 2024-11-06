@@ -23,10 +23,13 @@
       </div>
     </div>
     <div class="mt-[60px]">
-      <div id="items" class="grid grid-cols-4 gap-8">
+      <div
+        id="items"
+        class="grid grid-cols-4 max-tablet:grid-cols-2 gap-8 max-tablet:gap-4"
+      >
         <div
           :class="hiddenItems"
-          class="flex flex-col gap-4 w-[270px] cursor-pointer"
+          class="flex flex-col gap-4 w-full cursor-pointer"
           v-for="item in items"
           :key="item.id"
         >

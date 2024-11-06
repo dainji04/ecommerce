@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[1170px] mx-auto">
+  <div class="max-w-[1170px] mx-auto max-tablet:mx-3">
     <div id="road-map" class="flex items-center gap-3 my-20">
       <a-breadcrumb>
         <a-breadcrumb-item>
@@ -37,7 +37,9 @@
         Update cart
       </button>
     </div>
-    <div class="mt-20 flex justify-between">
+    <div
+      class="mt-20 flex max-tablet:flex-col max-tablet:gap-3 justify-between"
+    >
       <div class="flex gap-4">
         <input
           class="border border-solid border-[#000] h-fit rounded-md py-3 px-6"
@@ -51,7 +53,7 @@
         </button>
       </div>
       <div class="border border-solid border-black py-8 px-6 rounded-md">
-        <div class="w-[422px]">
+        <div class="w-[422px] max-tablet:w-full">
           <h1 class="text-base font-semibold mb-6">Cart total</h1>
           <div class="flex justify-between border-b-2 border-[#ccc] pb-4">
             <p>Subtotal:</p>
