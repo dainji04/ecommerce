@@ -1,8 +1,12 @@
 <template>
   <div id="Slide-and-menu" class="flex justify-between">
     <div class="slide flex gap-4 min-w-[892px] h-[344px] mt-10">
-      <div class="item max-tablet:w-full">
-        <div class="ml-16 mt-[58px] text-white mr-10">
+      <div
+        class="item justify-center max-tablet:justify-start max-tablet:w-full"
+      >
+        <div
+          class="ml-16 max-tablet:ml-2 mt-[58px] max-tablet:mt-2 text-white mr-10 z-10"
+        >
           <div class="flex items-center gap-6">
             <img loading="lazy" src="@/assets/images/logo-apple.png" alt="" />
             <h3>Iphone 14 series</h3>
@@ -23,12 +27,18 @@
             /></a>
           </div>
         </div>
-        <div class="w-[496px] h-[352px] mt-4 overflow-hidden">
+        <div
+          class="w-[496px] h-[352px] mt-4 overflow-hidden max-tablet:absolute"
+        >
           <img loading="lazy" src="@/assets/images/slider.png" alt="" />
         </div>
       </div>
-      <div class="item max-tablet:w-full">
-        <div class="ml-16 mt-[58px] text-white mr-10">
+      <div
+        class="item justify-center max-tablet:justify-start max-tablet:w-full"
+      >
+        <div
+          class="ml-16 max-tablet:ml-2 mt-[58px] max-tablet:mt-2 text-white mr-10 z-10"
+        >
           <div class="flex items-center gap-6">
             <img loading="lazy" src="@/assets/images/logo-apple.png" alt="" />
             <h3>Iphone 15 Pro</h3>
@@ -49,12 +59,18 @@
             /></a>
           </div>
         </div>
-        <div class="w-[496px] h-[352px] mt-4 overflow-hidden">
+        <div
+          class="w-[496px] h-[352px] mt-4 overflow-hidden max-tablet:absolute"
+        >
           <img loading="lazy" src="@/assets/images/iphone15pro.png" alt="" />
         </div>
       </div>
-      <div class="item max-tablet:w-full">
-        <div class="ml-16 mt-[58px] text-white mr-10">
+      <div
+        class="item justify-center max-tablet:justify-start max-tablet:w-full"
+      >
+        <div
+          class="ml-16 max-tablet:ml-2 mt-[58px] max-tablet:mt-2 text-white mr-10 z-10"
+        >
           <div class="flex items-center gap-6">
             <img loading="lazy" src="@/assets/images/logo-apple.png" alt="" />
             <h3>Iphone 16 Pro</h3>
@@ -75,12 +91,18 @@
             /></a>
           </div>
         </div>
-        <div class="w-[496px] h-[352px] mt-4 overflow-hidden">
+        <div
+          class="w-[496px] h-[352px] mt-4 overflow-hidden max-tablet:absolute"
+        >
           <img loading="lazy" src="@/assets/images/iphone16pro.png" alt="" />
         </div>
       </div>
-      <div class="item max-tablet:w-full">
-        <div class="ml-16 mt-[58px] text-white mr-10">
+      <div
+        class="item justify-center max-tablet:justify-start max-tablet:w-full"
+      >
+        <div
+          class="ml-16 max-tablet:ml-2 mt-[58px] max-tablet:mt-2 text-white mr-10 z-10"
+        >
           <div class="flex items-center gap-6">
             <img loading="lazy" src="@/assets/images/logo-apple.png" alt="" />
             <h3>Macbook Air M2</h3>
@@ -101,12 +123,18 @@
             /></a>
           </div>
         </div>
-        <div class="w-[496px] h-[352px] mt-4 overflow-hidden">
+        <div
+          class="w-[496px] h-[352px] mt-4 overflow-hidden max-tablet:absolute"
+        >
           <img loading="lazy" src="@/assets/images/macbookm2.png" alt="" />
         </div>
       </div>
-      <div class="item max-tablet:w-full">
-        <div class="ml-16 mt-[58px] text-white mr-10">
+      <div
+        class="item justify-center max-tablet:justify-start max-tablet:w-full"
+      >
+        <div
+          class="ml-16 max-tablet:ml-2 mt-[58px] max-tablet:mt-2 text-white mr-10 z-10"
+        >
           <div class="flex items-center gap-6">
             <img loading="lazy" src="@/assets/images/logo-apple.png" alt="" />
             <h3>Mac Mini</h3>
@@ -127,7 +155,9 @@
             /></a>
           </div>
         </div>
-        <div class="w-[496px] h-[352px] mt-4 overflow-hidden">
+        <div
+          class="w-[496px] h-[352px] mt-4 overflow-hidden max-tablet:absolute"
+        >
           <img loading="lazy" src="@/assets/images/macmini.png" alt="" />
         </div>
       </div>
@@ -153,11 +183,11 @@ export default {
       document.querySelector(".slide").appendChild(list[0]);
     };
 
-    onMounted(() => {
-      setInterval(() => {
-        next();
-      }, 3000);
-    });
+    // onMounted(() => {
+    //   setInterval(() => {
+    //     next();
+    //   }, 3000);
+    // });
 
     return {
       id,
@@ -173,11 +203,11 @@ export default {
   width: max-content;
 }
 .item {
+  height: 380px;
   width: 1170px;
   transition: 1s;
   position: absolute;
   display: flex;
-  justify-content: center;
   background-color: #000;
   user-select: none;
   border-radius: 5px;
