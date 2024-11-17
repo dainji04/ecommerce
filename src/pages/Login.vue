@@ -24,10 +24,7 @@
           </div>
 
           <div class="flex items-center justify-between">
-            <button
-              type="submit"
-              class="w-[40%] mt-10 bg-primary py-4 rounded-md text-white font-medium"
-            >
+            <button type="submit" class="w-[40%] mt-10 button--hover">
               Log In
             </button>
             <a href="#" class="mt-8 text-primary">Forgot password?</a>

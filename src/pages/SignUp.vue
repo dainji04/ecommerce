@@ -29,10 +29,7 @@
               <p>{{ error.pwd }}</p>
             </div>
           </div>
-          <button
-            type="submit"
-            class="mt-10 bg-primary py-4 w-full rounded-md text-white font-medium"
-          >
+          <button type="submit" class="mt-10 button--hover w-full">
             Create Account
           </button>
         </form>
