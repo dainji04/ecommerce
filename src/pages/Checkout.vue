@@ -108,7 +108,7 @@
               </div>
             </div>
             <div>
-              <div class="w-[422px]">
+              <div>
                 <div class="flex justify-between border-b-2 border-[#ccc] pb-4">
                   <p class="font-normal">Subtotal:</p>
                   <p>${{ subTotal }}</p>
@@ -203,7 +203,7 @@ export default {
     };
   },
   mounted() {
-    const url = "http://localhost:3000/user-products";
+    const url = "https://database-fake-api.vercel.app/user-products";
     fetch(url)
       .then((res) => res.json())
       .then((data) => {

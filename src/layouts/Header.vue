@@ -14,14 +14,6 @@
             ShopNow
           </router-link>
         </div>
-        <div>
-          <select
-            class="selectLanguage bg-black cursor-pointer focus-visible:outline-0"
-          >
-            <option>Vietnamese</option>
-            <option>English</option>
-          </select>
-        </div>
       </div>
     </div>
 
@@ -138,6 +130,7 @@
       <div class="flex items-center gap-6">
         <div class="relative flex items-center max-tablet:hidden">
           <input
+            @input="searchInput()"
             class="bg-[#f5f5f5] rounded-lg border-none outline-none py-3 px-4 pr-16 max-tablet:hidden"
             type="text"
             placeholder="What are you looking for?"
@@ -218,9 +211,12 @@
 <script>
 import firebase from "firebase/compat/app";
 import { Checklogin } from "../store/login";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
+    const router = useRouter();
     const Logout = () => {
       firebase
         .auth()
@@ -228,18 +224,14 @@ export default {
         .then(() => alert("Signed out"))
         .catch((err) => alert(err.message));
       checkLog.login = false;
-      console.log(checkLog.login);
+      router.replace("/");
     };
     const checkLog = Checklogin();
     return {
       Logout,
       checkLog,
-    };
-  },
-  data() {
-    return {
-      showSetting: "hidden",
-      isHidden: "hiddenMenu",
+      showSetting: ref("hidden"),
+      isHidden: ref("hiddenMenu"),
     };
   },
   methods: {
@@ -293,7 +285,7 @@ nav a.router-link-exact-active {
 .menu-setting {
   border-radius: 4px;
   backdrop-filter: blur(75px);
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 18px 12px 10px 20px;
 }
 .menu-setting > li {
@@ -301,9 +293,9 @@ nav a.router-link-exact-active {
   align-items: center;
   gap: 16px;
 }
-.menu-setting > li > div > img {
+/* .menu-setting > li > div > img {
   filter: invert(1);
-}
+} */
 .menu-setting > li:hover > p {
   color: blue;
 }
@@ -311,8 +303,7 @@ nav a.router-link-exact-active {
   font-size: 14px;
   font-weight: 400;
   text-align: center;
-  /*color: #fafafa; */
-  color: black;
+  color: #fff;
 }
 .menu-setting > li > div {
   width: 32px;
@@ -320,11 +311,5 @@ nav a.router-link-exact-active {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@media (max-width: 739px) {
-  .menu-setting {
-    background-color: #fff;
-  }
 }
 </style>

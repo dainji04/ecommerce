@@ -81,7 +81,7 @@
       <div
         class="grid grid-cols-4 gap-8 max-tablet:grid-cols-2 max-tablet:mx-2 max-tablet:gap-4"
       >
-        <div
+        <template
           class="flex flex-col gap-4 w-[270px] cursor-pointer max-pc:w-[100%]"
           v-for="item in items"
           :key="item.id"
@@ -181,7 +181,7 @@
               </div>
             </div>
           </router-link>
-        </div>
+        </template>
       </div>
       <div
         class="w-full flex items-center justify-center my-[60px] max-tablet:my-8"

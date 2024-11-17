@@ -165,17 +165,15 @@
   </div>
 </template>
 <script>
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 export default {
   setup() {
     const nameList = ref("flash-sales");
-    const id = ref(1);
+    const intervalId = ref(null);
 
     const prev = () => {
       const list = document.querySelectorAll(".slide > .item");
-
       document.querySelector(".slide").prepend(list[list.length - 1]);
-      console.log(list);
     };
 
     const next = () => {
@@ -183,14 +181,17 @@ export default {
       document.querySelector(".slide").appendChild(list[0]);
     };
 
-    // onMounted(() => {
-    //   setInterval(() => {
-    //     next();
-    //   }, 3000);
-    // });
+    onMounted(() => {
+      intervalId.value = setInterval(() => {
+        next();
+      }, 5000);
+    });
+
+    onUnmounted(() => {
+      clearInterval(intervalId.value);
+    });
 
     return {
-      id,
       nameList,
       prev,
       next,
@@ -203,14 +204,14 @@ export default {
   width: max-content;
 }
 .item {
-  height: 380px;
+  height: 370px;
   width: 1170px;
   transition: 1s;
   position: absolute;
   display: flex;
   background-color: #000;
-  user-select: none;
   border-radius: 5px;
+  user-select: none;
 }
 .item:nth-child(1) {
   transform: translate(-210%);
