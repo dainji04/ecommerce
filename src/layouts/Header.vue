@@ -207,6 +207,11 @@
                                 </router-link>
                             </template>
                         </template>
+                        <template v-if="filtered.length == 0">
+                            <div>
+                                <p>No result</p>
+                            </div>
+                        </template>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
