@@ -4,8 +4,8 @@ export default function () {
     const listItems = ref([]);
     const lengthList = ref(null);
     const error = ref(null);
-    // const URL = `https://database-fake-api.vercel.app/`;
-    const URL = `http://localhost:3000/`;
+    const URL = `https://database-fake-api.vercel.app/`;
+    // const URL = `http://localhost:3000/`;
     const fetchData = async (nameList) => {
         try {
             const response = await fetch(URL + nameList);
