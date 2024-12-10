@@ -1,5 +1,9 @@
 <template>
-    <div id="container">
+    <div
+        id="container"
+        ref="container-head"
+        class="w-full border-b-[1px] fixed top-0 left-0 right-0 z-20"
+    >
         <div
             class="text-sm h-12 w-full bg-black text-white py-3 pr-[136px] pl-[270px] tablet:max-pc:px-14 max-tablet:px-0"
         >
@@ -19,97 +23,13 @@
         </div>
 
         <div
-            class="flex items-center justify-between gap-40 mx-auto mt-7 mb-7 max-w-[1170px] max-tablet:gap-0 max-tablet:mx-4"
+            class="bg-white flex items-center justify-between gap-40 mx-auto py-7 max-w-[1170px] max-tablet:gap-0 max-tablet:px-4"
         >
             <div class="menu pc:hidden">
                 <div>
                     <button @click="toggleMenu()">
                         <img src="@/assets/fonts/menu.svg" alt="" />
                     </button>
-                    <div
-                        :class="isHidden"
-                        class="fixed top-0 left-0 right-0 bottom-0 p-6 bg-white w-[320px] max-w-[100%] z-20 rounded-tr-3xl rounded-br-3xl shadow-2xl display"
-                    >
-                        <div class="mb-4">
-                            <button>
-                                <img
-                                    class="w-6 h-6 invert rotate-180"
-                                    src="@/assets/fonts/arrow-right.svg"
-                                    alt=""
-                                    @click="toggleMenu()"
-                                />
-                            </button>
-                        </div>
-                        <ul class="grid gap-3">
-                            <li>
-                                <router-link
-                                    to="cart"
-                                    class="flex gap-3 items-center"
-                                >
-                                    <img src="@/assets/fonts/cart.svg" alt="" />
-                                    <span class="nav-btn__title">Cart</span>
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link
-                                    to="/wish-list"
-                                    class="flex items-center gap-3"
-                                >
-                                    <img
-                                        src="@/assets/fonts/heart.svg"
-                                        alt=""
-                                    />
-                                    <span class="nav-btn__title">Favorite</span>
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link
-                                    class="hover:underline decoration-[#ccc]"
-                                    to="/"
-                                >
-                                    Home
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link
-                                    class="hover:underline decoration-[#ccc]"
-                                    to="/contact"
-                                >
-                                    Contact
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link
-                                    class="hover:underline decoration-[#ccc]"
-                                    to="/about"
-                                >
-                                    About
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link
-                                    class="hover:underline decoration-[#ccc]"
-                                    to="/login"
-                                    v-show="!checkLog.login"
-                                >
-                                    Login
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link
-                                    class="hover:underline decoration-[#ccc]"
-                                    to="/sign-up"
-                                    v-show="!checkLog.login"
-                                >
-                                    Sign Up
-                                </router-link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div
-                        class="navbar__overlay fixed top-0 left-0 right-0 bottom-0 bg-black opacity-0 invisible z-10"
-                        @click="toggleMenu()"
-                    ></div>
                 </div>
             </div>
             <div
@@ -292,15 +212,102 @@
             </div>
         </div>
     </div>
-    <span
-        class="w-full flex h-[0.5px] justify-center items-center flex-shrink-0 bg-black opacity-30"
-    ></span>
+
+    <button
+        class="fixed z-30 bottom-10 right-10 bg-primary text-white rounded-md text-sm w-12 h-12 flex items-center justify-center"
+        :class="showScroll"
+        @click="toTop"
+    >
+        <img class="w-8 h-8" src="@/assets/fonts/arrow-up.svg" alt="" />
+    </button>
+
+    <div id="menu-modal">
+        <div
+            :class="isHidden"
+            class="fixed top-0 left-0 right-0 bottom-0 p-6 bg-white w-[320px] max-w-[100%] z-20 rounded-tr-3xl rounded-br-3xl shadow-2xl display"
+        >
+            <div class="mb-4">
+                <button>
+                    <img
+                        class="w-6 h-6 invert rotate-180"
+                        src="@/assets/fonts/arrow-right.svg"
+                        alt=""
+                        @click="toggleMenu()"
+                    />
+                </button>
+            </div>
+            <ul class="grid gap-3">
+                <li>
+                    <router-link to="cart" class="flex gap-3 items-center">
+                        <img src="@/assets/fonts/cart.svg" alt="" />
+                        <span class="nav-btn__title">Cart</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link
+                        to="/wish-list"
+                        class="flex items-center gap-3"
+                    >
+                        <img src="@/assets/fonts/heart.svg" alt="" />
+                        <span class="nav-btn__title">Favorite</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link
+                        class="hover:underline decoration-[#ccc]"
+                        to="/"
+                    >
+                        Home
+                    </router-link>
+                </li>
+                <li>
+                    <router-link
+                        class="hover:underline decoration-[#ccc]"
+                        to="/contact"
+                    >
+                        Contact
+                    </router-link>
+                </li>
+                <li>
+                    <router-link
+                        class="hover:underline decoration-[#ccc]"
+                        to="/about"
+                    >
+                        About
+                    </router-link>
+                </li>
+                <li>
+                    <router-link
+                        class="hover:underline decoration-[#ccc]"
+                        to="/login"
+                        v-show="!checkLog.login"
+                    >
+                        Login
+                    </router-link>
+                </li>
+                <li>
+                    <router-link
+                        class="hover:underline decoration-[#ccc]"
+                        to="/sign-up"
+                        v-show="!checkLog.login"
+                    >
+                        Sign Up
+                    </router-link>
+                </li>
+            </ul>
+        </div>
+        <div
+            class="navbar__overlay fixed top-0 left-0 right-0 bottom-0 bg-black opacity-0 invisible z-10"
+            @click="toggleMenu()"
+        ></div>
+    </div>
 </template>
+
 <script>
 import firebase from 'firebase/compat/app';
 import { Checklogin } from '../store/login';
 import fetchAPI from '@/store/fetchAPI';
-import { ref } from 'vue';
+import { ref, onMounted, useTemplateRef } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
@@ -316,6 +323,36 @@ export default {
             router.replace('/');
         };
         const checkLog = Checklogin();
+
+        let showScroll = ref('hidden');
+        const item = useTemplateRef('container-head');
+
+        onMounted(() => {
+            window.addEventListener('scroll', () => {
+                let a = 0;
+                a = window.scrollY;
+
+                if (a > 50) {
+                    a = 50;
+                }
+
+                if (item) {
+                    console.log(item);
+                    item.value.style.transform = `translate(0, -${a}px)`;
+                }
+
+                if (window.scrollY > 50 && window.scrollY < 100) {
+                    item.value.style.boxShadow =
+                        '0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)';
+                } else if (window.scrollY > 100) {
+                    showScroll.value = 'block';
+                } else {
+                    showScroll.value = 'hidden';
+                    item.value.style.boxShadow = 'none';
+                }
+            });
+        });
+
         return {
             Logout,
             checkLog,
@@ -324,6 +361,7 @@ export default {
             isSearch: ref(false),
             filtered: ref([]),
             time: ref(null),
+            showScroll,
         };
     },
     methods: {
@@ -382,10 +420,19 @@ export default {
                 this.isSearch = true;
             }
         },
+        toTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+            });
+        },
     },
 };
 </script>
 <style scoped>
+#container {
+    transition: 1s;
+}
 nav a.router-link-exact-active {
     text-decoration: underline;
     text-decoration-color: #ccc;
