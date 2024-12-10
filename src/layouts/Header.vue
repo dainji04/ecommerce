@@ -2,7 +2,7 @@
     <div
         id="container"
         ref="container-head"
-        class="w-full border-b-[1px] fixed top-0 left-0 right-0 z-20"
+        class="w-full border-b-[1px] bg-white fixed top-0 left-0 right-0 z-20"
     >
         <div
             class="text-sm h-12 w-full bg-black text-white py-3 pr-[136px] pl-[270px] tablet:max-pc:px-14 max-tablet:px-0"
@@ -23,7 +23,7 @@
         </div>
 
         <div
-            class="bg-white flex items-center justify-between gap-40 mx-auto py-7 max-w-[1170px] max-tablet:gap-0 max-tablet:px-4"
+            class="flex items-center justify-between gap-40 mx-auto py-7 max-w-[1170px] max-tablet:gap-0 max-tablet:px-4"
         >
             <div class="menu pc:hidden">
                 <div>
