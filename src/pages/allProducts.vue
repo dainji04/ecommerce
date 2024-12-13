@@ -128,16 +128,22 @@ import convertMoney from "../utils/convertMoney";
 import calculatorSales from "@/utils/calculatorDiscount";
 
 import SkeletonLoading from "@/components/SkeletonLoading.vue";
+import { ref } from "vue";
 
 export default {
   components: { SkeletonLoading },
   props: ["nameList"],
   data() {
     const { listItems, addToCart, addToWishList, fetchData } = useFetch();
-    fetchData(this.nameList);
+    const items = ref(null);
+    setTimeout(async () => {
+      await fetchData(this.nameList);
+
+      items.value = listItems.value;
+    }, 3000);
 
     return {
-      items: listItems,
+      items,
       addToCart,
       addToWishList,
       convertMoney,

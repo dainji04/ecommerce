@@ -223,6 +223,7 @@ import convertMoney from "@/utils/convertMoney";
 import calculatorSales from "@/utils/calculatorDiscount";
 
 import SkeletonLoading from "./SkeletonLoading.vue";
+import { ref } from "vue";
 
 export default {
   components: {
@@ -230,10 +231,16 @@ export default {
   },
   data() {
     const nameList = "flash-sales";
+    const items = ref(null);
     const { listItems, addToCart, addToWishList, fetchData } = useFetch();
-    fetchData(nameList);
+    setTimeout(async () => {
+      await fetchData(this.nameList);
+
+      items.value = listItems.value;
+    }, 3000);
+
     return {
-      items: listItems,
+      items,
       showAddCart: false,
       days: "01",
       hours: "23",
