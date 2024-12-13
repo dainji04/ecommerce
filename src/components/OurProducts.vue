@@ -149,11 +149,7 @@
                         params: { nameList: nameList },
                     }"
                 >
-                    <button
-                        class="py-4 px-12 bg-primary text-white font-medium"
-                    >
-                        Views All Products
-                    </button>
+                    <button class="button--hover">Views All Products</button>
                 </router-link>
             </div>
         </div>

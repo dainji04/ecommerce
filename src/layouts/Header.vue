@@ -337,7 +337,6 @@ export default {
                 }
 
                 if (item) {
-                    console.log(item);
                     item.value.style.transform = `translate(0, -${a}px)`;
                 }
 
@@ -378,7 +377,6 @@ export default {
             } else {
                 this.isHidden = 'hiddenMenu';
             }
-            console.log(this.isHidden);
         },
         searchInput() {
             const { listItems, fetchData } = fetchAPI();

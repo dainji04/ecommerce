@@ -1,15 +1,17 @@
-import { ref } from 'vue';
+import { ref } from "vue";
 
 export default function () {
     const listItems = ref([]);
     const lengthList = ref(null);
     const error = ref(null);
-    const URL = `https://database-fake-api.vercel.app/`;
-    // const URL = `http://localhost:3000/`;
+    // const URL = "http://localhost:3000/";
+    const URL = "https://dainji-server.vercel.app/";
+    // const URL = `https://database-fake-api.vercel.app/`;
+
     const fetchData = async (nameList) => {
         try {
             const response = await fetch(URL + nameList);
-            if (!response.ok) throw new Error('Something went wrong!!');
+            if (!response.ok) throw new Error("Something went wrong!!");
 
             listItems.value = await response.json();
             lengthList.value = listItems.value.length;
@@ -21,9 +23,9 @@ export default function () {
 
     const postData = async (nameList, data) => {
         const options = {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
         };
@@ -33,39 +35,40 @@ export default function () {
     };
 
     function addToCart(item, name) {
-        const nameList = 'user-products';
+        const nameList = "user-products";
         const data = {
             img: item.img,
             name: item.name,
             price: item.price,
             quantity: 1,
-            subtotal: '',
+            subtotal: "",
             nameList: name,
         };
         postData(nameList, data);
-        console.log('added To Cart');
+        console.log("added To Cart");
     }
+
     function addToWishList(item, name) {
-        const nameList = 'wish-list';
+        const nameList = "wish-list";
 
         const data = {
             img: item.img,
             name: item.name,
             price: item.price,
             quantity: 1,
-            subtotal: '',
+            subtotal: "",
             nameList: name,
         };
         postData(nameList, data);
-        console.log('added To WishList');
+        console.log("added To WishList");
     }
 
     // not yet complete
     const editData = async (nameList, data) => {
         const options = {
-            method: 'PUT',
+            method: "PUT",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
         };
@@ -73,7 +76,7 @@ export default function () {
             .then((res) => {
                 return res.json();
             })
-            .then(() => console.log('putted'));
+            .then(() => console.log("putted"));
     };
     // not yet complete
     const deleteData = async (nameList, id) => {
@@ -81,16 +84,17 @@ export default function () {
         console.log(newURL);
         try {
             const res = await fetch(newURL, {
-                method: 'DELETE',
+                method: "DELETE",
             });
-            if (!res.ok) throw new Error('delete is failed');
-            console.log('deleted');
+            if (!res.ok) throw new Error("delete is failed");
+            console.log("deleted");
         } catch (error) {
             console.log(error);
         }
     };
 
     return {
+        URL,
         listItems,
         lengthList,
         error,
