@@ -140,7 +140,7 @@ export default {
       await fetchData(this.nameList);
 
       items.value = listItems.value;
-    }, 3000);
+    }, 500);
 
     return {
       items,

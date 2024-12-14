@@ -4,6 +4,7 @@
   >
     <MenuSlide />
     <FlashSale />
+    <BrowseItems />
     <!-- <BestSelling /> -->
     <Phones />
     <!-- <OurProducts /> -->
@@ -20,6 +21,7 @@ import BestSelling from "../components/BestSelling.vue";
 import OurProducts from "../components/OurProducts.vue";
 import Laptop from "@/components/laptop.vue";
 import NewArrival from "../components/NewArrival.vue";
+import BrowseItems from "../components/BrowseItem.vue";
 
 import { ref, onBeforeMount } from "vue";
 import firebase from "firebase/compat/app";
@@ -33,6 +35,7 @@ export default {
     // OurProducts,
     Laptop,
     NewArrival,
+    BrowseItems,
   },
   setup() {
     const name = ref("");

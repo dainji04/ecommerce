@@ -1,30 +1,4 @@
 <template>
-  <div class="list-media flex gap-8 mt-[60px]">
-    <div>
-      <img src="@/assets/fonts/phones.svg" alt="" />
-      <p>Phones</p>
-    </div>
-    <div>
-      <img src="@/assets/fonts/computer.svg" alt="" />
-      <p>computer</p>
-    </div>
-    <div>
-      <img class="w-14 h-14" src="@/assets/fonts/appleWatch.svg" alt="" />
-      <p>appleWatch</p>
-    </div>
-    <div :class="clicked + 3">
-      <img class="invert" src="@/assets/fonts/camera.svg" alt="" />
-      <p>camera</p>
-    </div>
-    <div>
-      <img src="@/assets/fonts/headphones.svg" alt="" />
-      <p>headphones</p>
-    </div>
-    <div>
-      <img src="@/assets/fonts/gaming.svg" alt="" />
-      <p>gaming</p>
-    </div>
-  </div>
   <div
     class="flash-sales w-full flex flex-col relative mt-20 max-tablet:items-center"
   >
