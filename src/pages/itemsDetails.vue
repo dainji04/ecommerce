@@ -94,16 +94,28 @@
                   {{ color }}
                 </button>
               </div>
-              <div class="flex items-center text-xl">
-                <p class="mr-6">Size:</p>
+              <div v-if="item.ram" class="flex items-center text-base">
+                <p class="mr-6 text-base">RAM:</p>
                 <button
-                  class="btn w-8 h-8 border border-solid border-[#ccc] rounded"
-                  v-for="size in sizes"
-                  :key="size"
-                  :class="{ active: selectedSize === size }"
-                  @click="selectSize(size)"
+                  class="btn w-fit px-1 h-full border border-solid border-[#ccc] rounded"
+                  v-for="ram in item.ram"
+                  :key="ram"
+                  :class="{ active: selectedRam === ram }"
+                  @click="selectRam(ram)"
                 >
-                  {{ size }}
+                  {{ ram }}
+                </button>
+              </div>
+              <div v-if="item.rom" class="flex items-center text-base">
+                <p class="mr-6 text-base">ROM:</p>
+                <button
+                  class="btn w-fit px-1 h-full border border-solid border-[#ccc] rounded"
+                  v-for="rom in item.rom"
+                  :key="rom"
+                  :class="{ active: selectedRom === rom }"
+                  @click="selectRom(rom)"
+                >
+                  {{ rom }}
                 </button>
               </div>
               <div class="flex items-center gap-4 mt-2">
@@ -342,16 +354,16 @@ export default {
   props: ["id", "nameList"],
   data() {
     const { URL, listItems, fetchData, addToCart } = useFetch();
+    const interval = ref(null);
     watchEffect(() => {
       this.item;
     });
+
     return {
       item: null,
       relatedItems: ref(null),
       sizes: ["XS", "S", "M", "L", "XL"],
       quantity: 1,
-      selectedSize: null,
-      selectedColor: null,
       convertMoney,
       calculatorSales,
       active: 0,
@@ -359,6 +371,9 @@ export default {
       URL,
       listItems,
       fetchData,
+      selectedColor: null,
+      selectedRam: null,
+      selectedRom: null,
     };
   },
   watch: {
@@ -376,11 +391,14 @@ export default {
     this.fetchItemDetails(this.$route.params.id);
   },
   methods: {
-    selectSize(size) {
-      this.selectedSize = size;
-    },
     selectColor(color) {
       this.selectedColor = color;
+    },
+    selectRam(ram) {
+      this.selectedRam = ram;
+    },
+    selectCRom(rom) {
+      this.selectedRom = rom;
     },
     fetchItemDetails(id) {
       fetch(`${this.URL}${this.nameList}/${id}`)
@@ -399,11 +417,15 @@ export default {
       const items = document.querySelectorAll(".list-slide .slide");
       const lengthItems = items.length - 1;
 
+      clearInterval(this.interval);
+
       this.active = this.active + 1 <= lengthItems ? this.active + 1 : 0;
       this.reloadSlide(this.active);
     },
     prev() {
       const items = document.querySelectorAll(".list-slide .slide");
+
+      clearInterval(this.interval);
 
       const lengthItems = items.length - 1;
       this.active = this.active - 1 >= 0 ? this.active - 1 : lengthItems;
