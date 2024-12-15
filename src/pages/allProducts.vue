@@ -1,11 +1,20 @@
 <template>
   <div v-if="items" class="mt-8 max-w-[1170px] mx-auto">
+    <div id="road-map" class="flex items-center gap-3 my-20">
+      <a-breadcrumb>
+        <a-breadcrumb-item>
+          <router-link to="/"> Home </router-link>
+        </a-breadcrumb-item>
+        <a-breadcrumb-item>Catalog</a-breadcrumb-item>
+        <a-breadcrumb-item>{{ nameList }}</a-breadcrumb-item>
+      </a-breadcrumb>
+    </div>
     <div
       class="grid grid-cols-4 gap-8 max-tablet:grid-cols-2 max-tablet:mx-2 max-tablet:gap-4"
     >
       <template
         class="flex flex-col gap-4 w-[270px] cursor-pointer max-pc:w-[100%]"
-        v-for="item in items"
+        v-for="item in perItems"
         :key="item._id"
       >
         <router-link
@@ -103,6 +112,27 @@
         </router-link>
       </template>
     </div>
+    <div id="panigate" class="mt-16">
+      <nav>
+        <ul class="flex justify-center items-center gap-2">
+          <li
+            class="page-item"
+            @click="currentPage--, calItemsPages(currentPage)"
+          >
+            <
+          </li>
+          <li
+            class="page-item"
+            :class="{ active: index == currentPage }"
+            @click="(currentPage = index), calItemsPages()"
+            v-for="index in totalPages"
+          >
+            {{ index }}
+          </li>
+          <li class="page-item" @click="currentPage++, calItemsPages()">></li>
+        </ul>
+      </nav>
+    </div>
   </div>
   <div v-else>
     <SkeletonLoading />
@@ -136,10 +166,31 @@ export default {
   data() {
     const { listItems, addToCart, addToWishList, fetchData } = useFetch();
     const items = ref(null);
+
+    const currentPage = ref(1);
+    const perPage = 8;
+    const perItems = ref([]);
+    const totalPages = ref(0);
+
+    const calItemsPages = () => {
+      currentPage.value < 1 || currentPage.value > totalPages.value
+        ? (currentPage.value = 1)
+        : currentPage.value;
+
+      perItems.value = items.value.slice(
+        (currentPage.value - 1) * perPage,
+        (currentPage.value - 1) * perPage + perPage
+      );
+    };
+
     setTimeout(async () => {
       await fetchData(this.nameList);
 
       items.value = listItems.value;
+
+      calItemsPages();
+
+      totalPages.value = Math.ceil(items.value.length / perPage);
     }, 500);
 
     return {
@@ -148,6 +199,10 @@ export default {
       addToWishList,
       convertMoney,
       calculatorSales,
+      perItems,
+      totalPages,
+      calItemsPages,
+      currentPage,
     };
   },
 };
@@ -167,8 +222,26 @@ export default {
 .item:hover .add-to-cart {
   display: flex;
 }
-.item:hover > img {
+
+.page-item {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #e07575;
+  border-radius: 5px;
 }
+.page-item:hover {
+  background-color: #e07575;
+  color: white;
+}
+.page-item.active {
+  background-color: #e07575;
+  color: white;
+}
+
 @keyframes showAddToCart {
   0% {
     opacity: 0;
