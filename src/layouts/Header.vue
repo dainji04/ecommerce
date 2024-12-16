@@ -106,7 +106,7 @@
                     class="flex justify-between border-b-2 border-[#f5f5f5] py-2 hover:bg-gray-200"
                   >
                     <p>{{ item.name }}</p>
-                    <p class="text-primary">{{ item.price }}$</p>
+                    <p class="text-primary">{{ convertMoney(item.price) }}</p>
                   </div>
                 </router-link>
               </template>
@@ -267,6 +267,8 @@ import fetchAPI from "@/store/fetchAPI";
 import { ref, onMounted, useTemplateRef } from "vue";
 import { useRouter } from "vue-router";
 
+import convertMoney from "@/utils/convertMoney";
+
 export default {
   setup() {
     const router = useRouter();
@@ -318,6 +320,7 @@ export default {
       filtered: ref([]),
       time: ref(null),
       showScroll,
+      convertMoney,
     };
   },
   methods: {
