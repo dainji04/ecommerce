@@ -67,6 +67,14 @@ input:focus-visible {
 .items-product {
     max-height: 200px;
 }
+
+.add-to-cart {
+    display: none;
+    animation: showAddToCart 0.3s ease-in;
+}
+.item:hover .add-to-cart {
+display: flex;
+}
 @keyframes shimmer {
     0% {
         background-position: -468px 0;
@@ -75,3 +83,13 @@ input:focus-visible {
         background-position: 468px 0;
     }
 }
+
+@keyframes showAddToCart {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+    }
+  }

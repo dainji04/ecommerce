@@ -1,26 +1,23 @@
 <template>
-  <div v-if="items" class="mt-8 max-w-[1170px] mx-auto">
-    <div id="road-map" class="flex items-center gap-3 my-20">
-      <a-breadcrumb>
-        <a-breadcrumb-item>
-          <router-link to="/"> Home </router-link>
-        </a-breadcrumb-item>
-        <a-breadcrumb-item>Catalog</a-breadcrumb-item>
-        <a-breadcrumb-item>{{ nameList }}</a-breadcrumb-item>
-      </a-breadcrumb>
-    </div>
-    <div
-      class="grid grid-cols-4 gap-8 max-tablet:grid-cols-2 max-tablet:mx-2 max-tablet:gap-4"
-    >
+  <div id="products" class="flex flex-col gap-8 my-14">
+    <nav class="navbar w-full flex">
+      <ul class="flex justify-center items-center gap-8">
+        <li :class="{ active: nameList == 'new-arrival' }">New Arrival</li>
+        <li :class="{ active: nameList == 'best-sells' }">Best Seller</li>
+      </ul>
+    </nav>
+    <div class="grid grid-cols-4 gap-8">
       <template
         class="flex flex-col gap-4 w-[270px] cursor-pointer max-pc:w-[100%]"
-        v-for="item in perItems"
-        :key="item._id"
+        v-for="(item, index) in items"
+        :key="index"
+        v-show="index < 8"
       >
         <router-link
+          v-if="index < 8"
           :to="{
             name: 'itemsDetails',
-            params: { id: item._id, nameList: nameList },
+            params: { id: item._id, nameList: item.type },
           }"
         >
           <div
@@ -32,7 +29,6 @@
             >
               <p class="text-white text-xs">-{{ item.discount }}%</p>
             </div>
-
             <img
               loading="lazy"
               class="items-product p-[14px] max-tablet:max-h-[150px]"
@@ -111,130 +107,31 @@
           </div>
         </router-link>
       </template>
-      <template v-if="!perItems.length">
-        <div>Dont have any items</div>
-      </template>
-    </div>
-    <div id="panigate" class="mt-16">
-      <nav>
-        <ul class="flex justify-center items-center gap-2">
-          <li
-            class="page-item"
-            @click="currentPage--, calItemsPages(currentPage)"
-          >
-            <
-          </li>
-          <li
-            class="page-item"
-            :class="{ active: index == currentPage }"
-            @click="(currentPage = index), calItemsPages()"
-            v-for="index in totalPages"
-          >
-            {{ index }}
-          </li>
-          <li class="page-item" @click="currentPage++, calItemsPages()">></li>
-        </ul>
-      </nav>
     </div>
   </div>
-  <div v-else>
-    <SkeletonLoading />
-  </div>
-  <contextHolder />
 </template>
 
 <script setup>
-import { notification } from "ant-design-vue";
-const [api, contextHolder] = notification.useNotification();
-const open = (placement) => openNotification(placement);
-const openNotification = (placement) => {
-  api.success({
-    message: `Added success`,
-    description: `click ${placement} to view item`,
-  });
-};
-</script>
-
-<script>
-import useFetch from "@/store/fetchAPI";
-import convertMoney from "../utils/convertMoney";
+import convertMoney from "@/utils/convertMoney";
 import calculatorSales from "@/utils/calculatorDiscount";
+import useFetch from "@/store/fetchAPI";
+import { ref, onMounted } from "vue";
 
-import SkeletonLoading from "@/components/SkeletonLoading.vue";
-import { ref } from "vue";
+const items = ref([]);
+const nameList = ref("best-sells");
+const { listItems, addToCart, addToWishList, fetchData } = useFetch();
 
-export default {
-  components: { SkeletonLoading },
-  props: ["nameList"],
-  data() {
-    const { listItems, addToCart, addToWishList, fetchData } = useFetch();
-    const items = ref(null);
-
-    const currentPage = ref(1);
-    const perPage = 8;
-    const perItems = ref([]);
-    const totalPages = ref(0);
-
-    const calItemsPages = () => {
-      currentPage.value < 1 || currentPage.value > totalPages.value
-        ? (currentPage.value = 1)
-        : currentPage.value;
-
-      perItems.value = items.value.slice(
-        (currentPage.value - 1) * perPage,
-        (currentPage.value - 1) * perPage + perPage
-      );
-    };
-
-    setTimeout(async () => {
-      await fetchData(this.nameList);
-
-      items.value = listItems.value;
-
-      calItemsPages();
-
-      totalPages.value = Math.ceil(items.value.length / perPage);
-    }, 500);
-
-    return {
-      items,
-      addToCart,
-      addToWishList,
-      convertMoney,
-      calculatorSales,
-      perItems,
-      totalPages,
-      calItemsPages,
-      currentPage,
-    };
-  },
-};
+onMounted(async () => {
+  await fetchData("best-sells");
+  items.value = listItems.value;
+});
 </script>
-<style lang="css" scoped>
-#date > div:not(:last-child)::after {
-  content: ":";
-  color: #e07575;
-  height: 42px;
-  font-size: 40px;
-  line-height: 48px;
-}
 
-.page-item {
-  width: 35px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border: 1px solid #e07575;
-  border-radius: 5px;
+<style scoped>
+.navbar > ul > li {
+  padding-bottom: 10px;
 }
-.page-item:hover {
-  background-color: #e07575;
-  color: white;
-}
-.page-item.active {
-  background-color: #e07575;
-  color: white;
+.active {
+  border-bottom: 2px solid #000;
 }
 </style>

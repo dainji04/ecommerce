@@ -259,20 +259,4 @@ export default {
   font-size: 40px;
   line-height: 48px;
 }
-.add-to-cart {
-  display: none;
-  animation: showAddToCart 0.3s ease-in;
-}
-.item:hover .add-to-cart {
-  display: flex;
-}
-@keyframes showAddToCart {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-  }
-}
 </style>
