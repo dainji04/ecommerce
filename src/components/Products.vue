@@ -2,8 +2,18 @@
   <div id="products" class="flex flex-col gap-8 my-14">
     <nav class="navbar w-full flex">
       <ul class="flex justify-center items-center gap-8">
-        <li :class="{ active: nameList == 'new-arrival' }">New Arrival</li>
-        <li :class="{ active: nameList == 'best-sells' }">Best Seller</li>
+        <li
+          :class="{ active: nameList == 'new-arrival' }"
+          @click="(nameList = 'new-arrival'), app()"
+        >
+          New Arrival
+        </li>
+        <li
+          :class="{ active: nameList == 'best-sells' }"
+          @click="(nameList = 'best-sells'), app()"
+        >
+          Best Seller
+        </li>
       </ul>
     </nav>
     <div class="grid grid-cols-4 gap-8">
@@ -107,6 +117,11 @@
           </div>
         </router-link>
       </template>
+      <template v-if="!items.length">
+        <div>
+          <p class="text-primary">No dataa</p>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -121,9 +136,15 @@ const items = ref([]);
 const nameList = ref("best-sells");
 const { listItems, addToCart, addToWishList, fetchData } = useFetch();
 
-onMounted(async () => {
-  await fetchData("best-sells");
+const app = async () => {
+  console.log(nameList.value);
+  items.value = [];
+  listItems.value = [];
+  await fetchData(nameList.value);
   items.value = listItems.value;
+};
+onMounted(async () => {
+  app();
 });
 </script>
 

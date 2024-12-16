@@ -354,7 +354,6 @@ export default {
   props: ["id", "nameList"],
   data() {
     const { URL, listItems, fetchData, addToCart } = useFetch();
-    const interval = ref(null);
     watchEffect(() => {
       this.item;
     });
