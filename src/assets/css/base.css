@@ -9,10 +9,12 @@ html {
 ::selection {
     background-color: #ccc;
 }
-body {
+
+/* this is winter background from tgdd */
+/* body {
     background: url(https://cdnv2.tgdd.vn/webmwg/2024/ContentMwg/images/noel/2024/tgdd/bg-dt.png)
         no-repeat;
-}
+} */
 /* body::-webkit-scrollbar {
   display: none;
 } */
