@@ -1,5 +1,5 @@
 <template>
-  <div id="products" class="flex flex-col gap-8 my-14">
+  <div id="products" class="flex flex-col gap-8 my-14 mx-3">
     <nav class="navbar w-full flex">
       <ul class="flex justify-center items-center gap-8">
         <li
@@ -16,7 +16,9 @@
         </li>
       </ul>
     </nav>
-    <div class="grid grid-cols-4 gap-8">
+    <div
+      class="grid grid-cols-4 gap-8 max-tablet:grid-cols-2 max-tablet:mx-2 max-tablet:gap-4"
+    >
       <template
         class="flex flex-col gap-4 w-[270px] cursor-pointer max-pc:w-[100%]"
         v-for="(item, index) in items"
@@ -27,7 +29,7 @@
           v-if="index < 8"
           :to="{
             name: 'itemsDetails',
-            params: { id: item._id, nameList: item.type },
+            params: { id: item._id, nameList: nameList },
           }"
         >
           <div
@@ -69,16 +71,18 @@
               </a>
             </div>
           </div>
-          <div class="flex flex-col gap-2">
+          <div
+            class="flex flex-col gap-2 max-tablet:items-center max-tablet:text-center"
+          >
             <h2 class="font-semibold">{{ item.name }}</h2>
             <div class="flex items-center gap-3">
               <p class="text-primary font-semibold">
                 {{ calculatorSales(item.price, item.discount) }}
               </p>
-              <p class="opacity-50 font-semibold line-through">
-                {{ convertMoney(item.price) }}
-              </p>
             </div>
+            <p class="opacity-50 font-semibold line-through">
+              {{ convertMoney(item.price) }}
+            </p>
             <div class="flex gap-2">
               <div class="flex">
                 <img
@@ -119,7 +123,7 @@
       </template>
       <template v-if="!items.length">
         <div>
-          <p class="text-primary">No dataa</p>
+          <p class="text-primary">Loading...</p>
         </div>
       </template>
     </div>
