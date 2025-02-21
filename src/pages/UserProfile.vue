@@ -10,16 +10,10 @@
     </div>
     <div class="mt-20 flex gap-[100px]">
       <div class="flex-1 py-10 px-2">
-        <h1 class="text-primary">Edit Your Profile</h1>
-        <div class="mt-4 w-full flex gap-14 max-tablet:grid">
-          <div class="flex flex-col gap-2 w-full">
-            <label for="firstName">First Name</label>
-            <input type="text" v-model="firstName" :class="inputStyle" />
-          </div>
-          <div class="flex flex-col gap-2 w-full">
-            <label for="lastName">Last Name</label>
-            <input type="text" v-model="lastName" :class="inputStyle" />
-          </div>
+        <h1 class="text-primary mb-4">Edit Your Profile</h1>
+        <div class="flex flex-col gap-2 w-full">
+          <label for="firstName">Full Name</label>
+          <input type="text" v-model="firstName" :class="inputStyle" />
         </div>
         <div class="mt-6 w-full flex gap-14">
           <div class="flex flex-col gap-2 w-full">
@@ -61,33 +55,26 @@ export default {
       inputStyle: "unselectable",
       showEditBtn: true,
       showUpdateBtn: false,
-      firstName: "",
-      lastName: "",
+      fullname: "",
       email: "",
     };
   },
   async mounted() {
     const user = await User().getCurrentUser();
-    this.getNameUser();
+    fetch("http://localhost:3000/users")
+      .then((res) => res.json())
+      .then((data) => {
+        data.forEach((item) => {
+          if (item.email === user.email) {
+            this.firstName = item.firstName;
+            this.lastName = item.lastName;
+            this.email = item.email;
+          }
+        });
+      });
     this.email = await user.email;
   },
   methods: {
-    async getNameUser() {
-      const user = await User().getCurrentUser();
-      let name = user.displayName;
-      console.log(name);
-      for (var i = name.length; i >= 0; i--) {
-        if (name[i] == " ") {
-          for (var j = i; j < name.length; j++) {
-            this.lastName += name[j];
-          }
-          for (var j = 0; j < i; j++) {
-            this.firstName += name[j];
-          }
-          break;
-        }
-      }
-    },
     async toggleEditMode() {
       if (this.showEditBtn) {
         this.inputStyle = "select";

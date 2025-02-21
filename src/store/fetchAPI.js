@@ -4,8 +4,8 @@ export default function () {
     const listItems = ref([]);
     const lengthList = ref(null);
     const error = ref(null);
-    // const URL = "http://localhost:3000/";
-    const URL = "https://dainji-server.vercel.app/";
+    const URL = "http://localhost:3000/";
+    // const URL = "https://dainji-server.vercel.app/";
     // const URL = `https://database-fake-api.vercel.app/`;
 
     const fetchData = async (nameList) => {
