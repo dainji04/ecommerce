@@ -23,7 +23,7 @@
           <template v-else-if="column.dataIndex === 'delete'">
             <a-popconfirm
               title="Sure to delete?"
-              @confirm="onDelete(record._id)"
+              @confirm="onDelete(emailUser, record._id)"
             >
               <a>Delete</a>
             </a-popconfirm>
@@ -99,6 +99,10 @@ import User from "@/store/getUser";
 // import { StripeCheckout } from "@vue-stripe/vue-stripe";
 export default {
   setup() {
+    const emailUser = ref("");
+    const products = ref([]);
+    const { listItems, fetchData, deleteData } = useFetch();
+
     const columns = [
       {
         title: "Product",
@@ -135,13 +139,13 @@ export default {
         name: record.name,
       }),
     };
-    const onDelete = (key) => {
-      const name = "user-products";
-      const { deleteData } = useFetch();
-      deleteData(name, key);
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
+
+    const onDelete = (email, id) => {
+      const endPoint = `user/auth/${email}/cart/${id}`;
+      deleteData(endPoint);
+      setTimeout(async () => {
+        location.reload();
+      }, 100);
     };
     const formState = reactive({
       "input-number": 1,
@@ -150,28 +154,29 @@ export default {
     return {
       formState,
       columns,
-      products: ref([]),
+      products,
       subTotal: ref(null),
       rowSelection,
       onDelete,
+      emailUser,
     };
   },
 
   async mounted() {
     const { listItems, fetchData } = useFetch();
     const user = await User().getCurrentUser();
-    await fetchData(`user/auth/${user.email}/cart`);
+    this.emailUser = user.email;
+
+    await fetchData(`user/auth/${this.emailUser}/cart`);
     this.products = listItems;
 
     await this.products.forEach((product, index) => {
-      console.log("product: ", product);
       product.key = index + 1;
       product.subtotal = product.productPrice * product.quantity;
       this.subTotal += product.subtotal;
       product.subtotal = "$" + product.subtotal;
       product.productPrice = "$" + product.productPrice;
     });
-    console.log(this.products.value);
   },
 };
 </script>

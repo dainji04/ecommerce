@@ -73,15 +73,13 @@ export default function () {
             .then(() => console.log("putted"));
     };
     // not yet complete
-    const deleteData = async (nameList, id) => {
-        let newURL = `${URL}${nameList}/${id}`;
-        console.log(newURL);
+    const deleteData = async (endPoint) => {
+        const newURL = URL + endPoint;
         try {
             const res = await fetch(newURL, {
                 method: "DELETE",
             });
             if (!res.ok) throw new Error("delete is failed");
-            console.log("deleted");
         } catch (error) {
             console.log(error);
         }

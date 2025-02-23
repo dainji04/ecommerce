@@ -50,6 +50,7 @@
                 >
                   <button
                     class="group w-8 h-8 flex items-center justify-center rounded-md bg-gray-100 hover:bg-red-500 transition-all duration-200 ease-in-out active:scale-95"
+                    @click.stop.prevent="handleDelete(item._id)"
                   >
                     <svg
                       class="w-4 h-4 fill-gray-600 transition-all duration-200 ease-in-out group-hover:fill-white group-hover:scale-110"
@@ -66,8 +67,7 @@
                   class="add-to-cart absolute bottom-0 left-50% w-full py-2 flex items-center justify-center bg-black"
                 >
                   <a
-                    @click.stop.prevent="addToCart(item, item.productType)"
-                    @click="() => open('cart')"
+                    @click.stop.prevent="handleAddToCart(item)"
                     class="text-white w-full flex justify-center items-center hover:text-red-400"
                   >
                     Add To Cart
@@ -103,6 +103,7 @@
   </div>
   <contextHolder />
 </template>
+
 <script setup>
 import { notification } from "ant-design-vue";
 import useFetch from "@/store/fetchAPI";
@@ -113,14 +114,36 @@ import convertMoney from "@/utils/convertMoney";
 const user = ref("");
 const length = ref(0);
 const items = ref(null);
+const emailUser = ref("");
 const { listItems, fetchData, deleteData, addToCart } = useFetch();
 
-onMounted(async () => {
-  user.value = await User().getCurrentUser();
+const refreshItems = async () => {
   const email = user.value.email;
   await fetchData(`user/auth/${email}/wishlist`);
   items.value = listItems.value;
   length.value = items.value.length;
+};
+
+const handleDelete = async (itemId) => {
+  const endPoint = `user/auth/${emailUser.value}/wishlist/${itemId}`;
+  await deleteData(endPoint);
+  await refreshItems();
+};
+
+const handleAddToCart = async (item) => {
+  const data = {
+    _id: item.productId,
+    name: item.productName,
+    price: item.productPrice,
+  };
+  await addToCart(data, emailUser.value);
+  open("cart");
+};
+
+onMounted(async () => {
+  user.value = await User().getCurrentUser();
+  emailUser.value = user.value.email;
+  await refreshItems();
 });
 
 const [api, contextHolder] = notification.useNotification();
