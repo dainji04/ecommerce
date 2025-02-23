@@ -38,7 +38,7 @@
         <button
           class="bg-primary text-white py-2 px-8 w-fit rounded-md font-semibold text-lg"
         >
-          Contact
+          <router-link :to="{ name: 'contact' }">Contact</router-link>
         </button>
       </div>
     </div>

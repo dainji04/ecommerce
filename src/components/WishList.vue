@@ -7,7 +7,7 @@
             <div class="flex flex-col gap-6">
               <div class="flex items-center gap-4">
                 <h2 class="text-base font-semibold leading-5">
-                  Wishlist ({{ lengthItems }})
+                  Wishlist ({{ length }})
                 </h2>
               </div>
             </div>
@@ -34,7 +34,7 @@
             <router-link
               :to="{
                 name: 'itemsDetails',
-                params: { id: item._id, nameList: item.productType },
+                params: { id: item.productId, nameList: item.productType },
               }"
             >
               <div
@@ -48,12 +48,19 @@
                 <div
                   class="absolute w-12 h-12 top-3 right-3 flex flex-col justify-center gap-2"
                 >
-                  <img
-                    loading="lazy"
-                    class="m-[5px] p-[5px] rounded-full bg-red hover:invert cursor-pointer"
-                    src="@/assets/fonts/trash.svg"
-                    alt=""
-                  />
+                  <button
+                    class="group w-8 h-8 flex items-center justify-center rounded-md bg-gray-100 hover:bg-red-500 transition-all duration-200 ease-in-out active:scale-95"
+                  >
+                    <svg
+                      class="w-4 h-4 fill-gray-600 transition-all duration-200 ease-in-out group-hover:fill-white group-hover:scale-110"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                    >
+                      <path
+                        d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"
+                      />
+                    </svg>
+                  </button>
                 </div>
                 <div
                   class="add-to-cart absolute bottom-0 left-50% w-full py-2 flex items-center justify-center bg-black"
@@ -71,7 +78,7 @@
                 <h2 class="font-semibold">{{ item.productName }}</h2>
                 <div class="flex items-center gap-3">
                   <p class="text-primary font-semibold">
-                    ${{ item.productPrice }}
+                    ${{ convertMoney(item.productPrice) }}
                   </p>
                 </div>
               </div>
@@ -101,16 +108,19 @@ import { notification } from "ant-design-vue";
 import useFetch from "@/store/fetchAPI";
 import User from "@/store/getUser";
 import { ref, onMounted } from "vue";
+import convertMoney from "@/utils/convertMoney";
 
 const user = ref("");
+const length = ref(0);
 const items = ref(null);
-const { listItems, lengthList, fetchData, deleteData, addToCart } = useFetch();
+const { listItems, fetchData, deleteData, addToCart } = useFetch();
 
 onMounted(async () => {
   user.value = await User().getCurrentUser();
   const email = user.value.email;
   await fetchData(`user/auth/${email}/wishlist`);
   items.value = listItems.value;
+  length.value = items.value.length;
 });
 
 const [api, contextHolder] = notification.useNotification();

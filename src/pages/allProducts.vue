@@ -41,7 +41,7 @@
             />
             <div
               class="absolute top-3 right-3 flex flex-col justify-center gap-2"
-              @click.stop.prevent="addToWishList(item, nameList)"
+              @click.stop.prevent="addToWishList(item, emailUser)"
               @click="() => open('wish list')"
             >
               <img
@@ -55,7 +55,7 @@
               class="add-to-cart absolute bottom-0 left-50% w-full py-2 flex items-center justify-center bg-black"
             >
               <a
-                @click.stop.prevent="addToCart(item, nameList)"
+                @click.stop.prevent="addToCart(item, emailUser)"
                 @click="() => open('cart')"
                 class="text-white w-full flex justify-center items-center hover:text-red-400"
               >
@@ -112,7 +112,7 @@
         </router-link>
       </template>
       <template v-if="!perItems.length">
-        <div>Dont have any items</div>
+        <div>Don't have any items</div>
       </template>
     </div>
     <div id="panigate" class="mt-16">
@@ -163,6 +163,8 @@ import calculatorSales from "@/utils/calculatorDiscount";
 import SkeletonLoading from "@/components/SkeletonLoading.vue";
 import { ref } from "vue";
 
+import User from "@/store/getUser";
+
 export default {
   components: { SkeletonLoading },
   props: ["nameList"],
@@ -206,7 +208,12 @@ export default {
       totalPages,
       calItemsPages,
       currentPage,
+      emailUser: "",
     };
+  },
+  async mounted() {
+    const user = await User().getCurrentUser();
+    this.emailUser = user.email;
   },
 };
 </script>

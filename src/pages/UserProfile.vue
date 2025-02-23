@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-20 max-w-[1170px] mx-auto">
+  <div class="mt-20 max-w-[1170px] mx-auto max-tablet:mx-5">
     <div class="max-tablet:mx-3">
       <a-breadcrumb>
         <a-breadcrumb-item>

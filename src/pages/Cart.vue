@@ -10,9 +10,11 @@
     </div>
     <div class="table w-full">
       <a-table
+        class="max-tablet:w-[370px] max-tablet:overflow-auto"
         :row-selection="rowSelection"
         :columns="columns"
         :data-source="products"
+        :row-key="(record) => record.id"
       >
         <template #bodyCell="{ column, text, record }">
           <template v-if="column.dataIndex === 'name'">
@@ -21,7 +23,7 @@
           <template v-else-if="column.dataIndex === 'delete'">
             <a-popconfirm
               title="Sure to delete?"
-              @confirm="onDelete(record.id)"
+              @confirm="onDelete(record._id)"
             >
               <a>Delete</a>
             </a-popconfirm>
@@ -83,7 +85,7 @@
             class="mt-4 bg-primary text-white font-medium py-4 px-12 rounded-md"
             @click="submit"
           >
-            procees to checkout
+            proceed to checkout
           </button>
         </router-link>
       </div>
@@ -93,17 +95,18 @@
 <script>
 import { reactive, ref } from "vue";
 import useFetch from "@/store/fetchAPI";
+import User from "@/store/getUser";
 // import { StripeCheckout } from "@vue-stripe/vue-stripe";
 export default {
   setup() {
     const columns = [
       {
         title: "Product",
-        dataIndex: "name",
+        dataIndex: "productName",
       },
       {
         title: "Price",
-        dataIndex: "price",
+        dataIndex: "productPrice",
       },
       {
         title: "Quantity",
@@ -114,7 +117,7 @@ export default {
         dataIndex: "subtotal",
       },
       {
-        title: "delete",
+        title: "",
         dataIndex: "delete",
       },
     ];
@@ -143,6 +146,7 @@ export default {
     const formState = reactive({
       "input-number": 1,
     });
+
     return {
       formState,
       columns,
@@ -153,23 +157,21 @@ export default {
     };
   },
 
-  mounted() {
-    // const url = "http://localhost:3000/user-products";
+  async mounted() {
+    const { listItems, fetchData } = useFetch();
+    const user = await User().getCurrentUser();
+    await fetchData(`user/auth/${user.email}/cart`);
+    this.products = listItems;
 
-    const url = "https://database-fake-api.vercel.app/user-products";
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        this.products = data;
-        this.products.forEach((product, index) => {
-          product.key = index + 1;
-          product.subtotal = product.price * product.quantity;
-          this.subTotal += product.subtotal;
-          product.subtotal = "$" + product.subtotal;
-          product.price = "$" + product.price;
-        });
-      })
-      .catch((err) => console.log("err: ", err));
+    await this.products.forEach((product, index) => {
+      console.log("product: ", product);
+      product.key = index + 1;
+      product.subtotal = product.productPrice * product.quantity;
+      this.subTotal += product.subtotal;
+      product.subtotal = "$" + product.subtotal;
+      product.productPrice = "$" + product.productPrice;
+    });
+    console.log(this.products.value);
   },
 };
 </script>

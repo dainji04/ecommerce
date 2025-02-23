@@ -82,7 +82,7 @@
               class="add-to-cart absolute bottom-0 left-50% w-full py-2 flex items-center justify-center bg-black text-white"
             >
               <a
-                @click.stop.prevent="addToCart(item, nameList)"
+                @click.stop.prevent="addToCart(item, emailUser)"
                 @click="() => open('cart')"
                 class="text-white w-full flex justify-center items-center hover:text-red-400"
               >

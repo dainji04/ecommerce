@@ -62,7 +62,7 @@
               />
               <div
                 class="absolute top-3 right-3 flex flex-col justify-center gap-2"
-                @click.stop.prevent="addToWishList(item, nameList)"
+                @click.stop.prevent="addToWishList(item, emailUser)"
                 @click="() => open('wish list')"
               >
                 <img
@@ -76,7 +76,7 @@
                 class="add-to-cart absolute bottom-0 left-50% w-full py-2 flex items-center justify-center bg-black"
               >
                 <a
-                  @click.stop.prevent="addToCart(item, nameList)"
+                  @click.stop.prevent="addToCart(item, emailUser)"
                   @click="() => open('cart')"
                   class="text-white w-full flex justify-center items-center hover:text-red-400"
                 >
@@ -167,6 +167,7 @@ const openNotification = (placement) => {
 import useFetch from "@/store/fetchAPI";
 import convertMoney from "@/utils/convertMoney";
 import calculatorSales from "@/utils/calculatorDiscount";
+import User from "@/store/getUser";
 export default {
   data() {
     const nameList = "laptop";
@@ -182,6 +183,10 @@ export default {
       convertMoney,
       calculatorSales,
     };
+  },
+  async mounted() {
+    const user = await User().getCurrentUser();
+    this.emailUser = user.email;
   },
 };
 </script>

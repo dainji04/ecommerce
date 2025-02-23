@@ -34,17 +34,14 @@ export default function () {
         });
     };
 
-    function addToCart(item, name) {
-        const nameList = "user-products";
+    function addToCart(product, emailUser) {
+        const endPoint = "user/auth/" + emailUser + "/cart";
         const data = {
-            img: item.img,
-            name: item.name,
-            price: item.price,
-            quantity: 1,
-            subtotal: "",
-            nameList: name,
+            productId: product._id,
+            productName: product.name,
+            productPrice: product.price,
         };
-        postData(nameList, data);
+        postData(endPoint, data);
     }
 
     function addToWishList(product, emailUser) {
