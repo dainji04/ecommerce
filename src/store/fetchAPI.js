@@ -55,7 +55,7 @@ export default function () {
             productName: product.name,
             productImage: product.thumbnail,
             productPrice: product.price,
-            productType: product.type,
+            productType: product.type.toLowerCase(),
         };
         postData(endPoint, data);
     }
