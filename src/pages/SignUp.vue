@@ -5,6 +5,15 @@
         <img src="@/assets/images/signupBG.png" alt="" />
       </div>
       <div class="w-[30%] max-tablet:w-full">
+        <div
+          v-if="userExists"
+          class="bg-[#ff818146] border-[#ff818266] border-2 border-solid rounded flex justify-center items-center h-20 mb-2"
+        >
+          <p class="text-base">User already exists. Please log in.</p>
+          <button @click="userExists = false">
+            <img class="ml-2 w-5 h-5" src="@/assets/fonts/close.svg" alt="" />
+          </button>
+        </div>
         <h1 class="font-[inter] text-4xl font-medium">Create an account</h1>
         <h2 class="mt-6 mb-12">Enter your details below</h2>
         <form @submit.prevent="validate">
@@ -55,12 +64,14 @@
 import { ref } from "vue";
 import firebase from "firebase/compat/app";
 import { useRouter } from "vue-router";
+import useFetch from "@/store/fetchAPI";
 export default {
   data() {
     const name = ref("");
     const email = ref("");
     const pwd = ref("");
     const router = useRouter();
+    const userExists = ref(false);
     const Register = () => {
       firebase
         .auth()
@@ -69,17 +80,25 @@ export default {
           user.user.updateProfile({
             displayName: name.value,
           });
+          router.replace("/");
         })
-        .catch((err) => console.log(err.massage));
-      router.replace("/");
+        .catch((err) => {
+          if (err.code === "auth/email-already-in-use") {
+            userExists.value = true;
+          } else {
+            console.log(err.message);
+          }
+        });
     };
 
     return {
+      URL: useFetch().URL,
       Register,
       name,
       email,
       pwd,
       error: [],
+      userExists,
     };
   },
   methods: {
@@ -88,8 +107,11 @@ export default {
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(() => {
-          console.log("Google Sign-in successful");
+        .then((result) => {
+          const user = result.user;
+          this.email = user.email;
+          this.name = user.displayName;
+          this.createUserDB();
           setTimeout(() => {
             this.$router.push("/");
           }, 2000);
@@ -115,7 +137,21 @@ export default {
       }
       return false;
     },
-    validate() {
+    createUserDB() {
+      const newURL = this.URL + "user/register";
+      console.log(newURL);
+      fetch(newURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: this.name,
+          emailLogin: this.email,
+        }),
+      });
+    },
+    async validate() {
       this.error = [];
       if (!this.minlength(this.name, 5)) {
         this.error["name"] = "name must be at least 5 characters";
@@ -127,16 +163,7 @@ export default {
         this.error["pwd"] = "password must be at least 6 characters";
       }
       if (Object.keys(this.error).length == 0) {
-        // fetch("http://localhost:3000/user/register", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({
-        //     name: this.name,
-        //     email: this.email,
-        //   }),
-        // });
+        this.createUserDB();
         this.Register();
       }
     },

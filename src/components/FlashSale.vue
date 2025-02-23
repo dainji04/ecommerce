@@ -112,7 +112,7 @@
                 />
                 <div
                   class="absolute top-3 right-3 flex flex-col justify-center gap-2"
-                  @click.stop.prevent="addToWishList(item, nameList)"
+                  @click.stop.prevent="addToWishList(item, emailUser)"
                   @click="() => open('wish list')"
                 >
                   <img
@@ -225,6 +225,8 @@ import calculatorSales from "@/utils/calculatorDiscount";
 import SkeletonLoading from "./SkeletonLoading.vue";
 import { ref } from "vue";
 
+import User from "@/store/getUser";
+
 export default {
   components: {
     SkeletonLoading,
@@ -251,9 +253,10 @@ export default {
       addToWishList,
       calculatorSales,
       convertMoney,
+      emailUser: "",
     };
   },
-  mounted() {
+  async mounted() {
     let targetDate = new Date();
     targetDate.setFullYear(2025, 4, 1);
     targetDate.setHours(0, 0, 0);
@@ -261,6 +264,9 @@ export default {
     setInterval(() => {
       this.updateTime(targetDate);
     }, 1000);
+
+    const user = await User().getCurrentUser();
+    this.emailUser = user.email;
   },
   methods: {
     calculatorSales(originalPrice, discount) {
@@ -297,18 +303,5 @@ export default {
   height: 42px;
   font-size: 40px;
   line-height: 48px;
-}
-
-@keyframes showAddToCart {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-  }
-}
-#items > .hiddenItems:nth-child(n + 5) {
-  display: none;
 }
 </style>

@@ -13,12 +13,24 @@
         <h1 class="text-primary mb-4">Edit Your Profile</h1>
         <div class="flex flex-col gap-2 w-full">
           <label for="firstName">Full Name</label>
-          <input type="text" v-model="firstName" :class="inputStyle" />
+          <input type="text" v-model="fullname" :class="inputStyle" />
         </div>
         <div class="mt-6 w-full flex gap-14">
           <div class="flex flex-col gap-2 w-full">
             <label for="email">Email</label>
             <input type="email" v-model="email" :class="inputStyle" />
+          </div>
+        </div>
+        <div class="mt-6 w-full flex gap-14">
+          <div class="flex flex-col gap-2 w-full">
+            <label for="address">Address</label>
+            <input type="text" v-model="address" :class="inputStyle" />
+          </div>
+        </div>
+        <div class="mt-6 w-full flex gap-14">
+          <div class="flex flex-col gap-2 w-full">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" v-model="phoneNumber" :class="inputStyle" />
           </div>
         </div>
         <div class="mt-6 float-right">
@@ -27,7 +39,7 @@
             @click="toggleEditMode"
             v-show="showEditBtn"
           >
-            Edit Informations
+            Edit Information
           </button>
           <div class="flex items-center rounded gap-6" v-show="showUpdateBtn">
             <button class="bg-gray-100 px-5 py-4" @click="toggleEditMode">
@@ -49,30 +61,36 @@
 import { getAuth, updateProfile } from "firebase/auth";
 import "firebase/auth";
 import User from "@/store/getUser";
+import { ref } from "vue";
 export default {
   data() {
     return {
       inputStyle: "unselectable",
       showEditBtn: true,
       showUpdateBtn: false,
-      fullname: "",
-      email: "",
+      fullname: ref(""),
+      email: ref(""),
+      address: ref(""),
+      phoneNumber: ref(""),
     };
   },
   async mounted() {
     const user = await User().getCurrentUser();
-    fetch("http://localhost:3000/users")
+    console.log(user);
+
+    const newURL = `http://localhost:3000/user/auth/${user.email}/info`;
+    console.log(newURL);
+
+    fetch(newURL)
       .then((res) => res.json())
-      .then((data) => {
-        data.forEach((item) => {
-          if (item.email === user.email) {
-            this.firstName = item.firstName;
-            this.lastName = item.lastName;
-            this.email = item.email;
-          }
-        });
+      .then(async (data) => {
+        console.log(data, this.fullname, this.email);
+        const userInfo = data.data;
+        this.fullname = userInfo.name;
+        this.email = userInfo.email;
+        this.address = userInfo.address;
+        this.phoneNumber = userInfo.phoneNumber;
       });
-    this.email = await user.email;
   },
   methods: {
     async toggleEditMode() {
@@ -87,12 +105,25 @@ export default {
     async updateUserProfile() {
       const auth = getAuth();
       updateProfile(auth.currentUser, {
-        displayName: `${this.firstName} ${this.lastName}`,
+        displayName: this.fullname,
         email: this.email,
-        photoURL: `${this.address}`,
       })
-        .then(() => {
-          console.log(auth.currentUser);
+        .then(async () => {
+          const user = await User().getCurrentUser();
+          const email = await user.email;
+          fetch(`http://localhost:3000/user/auth/${email}/update`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: this.fullname,
+              email: this.email,
+              address: this.address,
+              phoneNumber: this.phoneNumber,
+            }),
+          });
+
           this.inputStyle = "unselectable";
           this.showUpdateBtn = !this.showUpdateBtn;
           this.showEditBtn = !this.showEditBtn;

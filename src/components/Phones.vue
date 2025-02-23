@@ -68,7 +68,7 @@
             />
             <div
               class="absolute top-3 right-3 flex flex-col justify-center gap-2"
-              @click.stop.prevent="addToWishList(item, nameList)"
+              @click.stop.prevent="addToWishList(item, emailUser)"
               @click="() => open('wish list')"
             >
               <img
@@ -214,12 +214,23 @@ const openNotification = (placement) => {
     description: `click ${placement} to view item`,
   });
 };
+
+const emailUser = ref("");
+
+onMounted(async () => {
+  const user = await User().getCurrentUser();
+  emailUser.value = user.email;
+});
 </script>
 
 <script>
 import useFetch from "@/store/fetchAPI";
 import convertMoney from "@/utils/convertMoney";
 import calculatorSales from "@/utils/calculatorDiscount";
+
+import { ref, onMounted } from "vue";
+
+import User from "@/store/getUser";
 
 export default {
   data() {

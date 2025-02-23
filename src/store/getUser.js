@@ -14,7 +14,11 @@ export default function () {
             );
         });
     };
+
+    const email = getCurrentUser().email;
+
     return {
         getCurrentUser,
+        email,
     };
 }

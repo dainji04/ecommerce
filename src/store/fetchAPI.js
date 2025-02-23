@@ -21,7 +21,7 @@ export default function () {
         }
     };
 
-    const postData = async (nameList, data) => {
+    const postData = async (endPoint, data) => {
         const options = {
             method: "POST",
             headers: {
@@ -29,7 +29,7 @@ export default function () {
             },
             body: JSON.stringify(data),
         };
-        fetch(URL + nameList, options).then((res) => {
+        fetch(URL + endPoint, options).then((res) => {
             return res.json();
         });
     };
@@ -45,22 +45,19 @@ export default function () {
             nameList: name,
         };
         postData(nameList, data);
-        console.log("added To Cart");
     }
 
-    function addToWishList(item, name) {
-        const nameList = "wish-list";
+    function addToWishList(product, emailUser) {
+        const endPoint = `user/auth/${emailUser}/wishlist`;
 
         const data = {
-            img: item.img,
-            name: item.name,
-            price: item.price,
-            quantity: 1,
-            subtotal: "",
-            nameList: name,
+            productId: product._id,
+            productName: product.name,
+            productImage: product.thumbnail,
+            productPrice: product.price,
+            productType: product.type,
         };
-        postData(nameList, data);
-        console.log("added To WishList");
+        postData(endPoint, data);
     }
 
     // not yet complete
