@@ -24,8 +24,8 @@
       </div>
     </div>
     <div class="mt-[60px]">
-      <div class="grid grid-cols-4 max-tablet:grid-cols-2 gap-8">
-        <template v-if="items">
+      <template v-if="length > 0">
+        <div class="grid grid-cols-4 max-tablet:grid-cols-2 gap-8">
           <div
             class="flex flex-col gap-4 w-full cursor-pointer"
             v-for="item in items"
@@ -84,21 +84,29 @@
               </div>
             </router-link>
           </div>
-        </template>
-        <template v-else>
-          <div class="flex flex-col gap-4 w-full cursor-pointer">
-            <div
-              class="item w-full h-[250px] bg-grayScale rounded-md overflow-hidden outline-none border-none flex items-center justify-center relative"
-            >
-              <img
-                class="items-product p-[14px]"
-                src="@/assets/fonts/empty.svg"
-                alt=""
-              />
-            </div>
+        </div>
+      </template>
+      <template v-if="!emailUser">
+        <div class="w-full flex items-center justify-center gap-4">
+          <p class="text-gray-500">Please log in to view your wishlist.</p>
+          <router-link :to="{ name: 'login' }" class="underline">
+            Go to Login
+          </router-link>
+        </div>
+      </template>
+      <template v-else>
+        <div class="flex flex-col gap-4 w-full cursor-pointer">
+          <div
+            class="item w-full h-[250px] bg-grayScale rounded-md overflow-hidden outline-none border-none flex items-center justify-center relative"
+          >
+            <img
+              class="items-product p-[14px]"
+              src="@/assets/fonts/empty.svg"
+              alt=""
+            />
           </div>
-        </template>
-      </div>
+        </div>
+      </template>
     </div>
   </div>
   <contextHolder />
@@ -111,15 +119,13 @@ import User from "@/store/getUser";
 import { ref, onMounted } from "vue";
 import convertMoney from "@/utils/convertMoney";
 
-const user = ref("");
 const length = ref(0);
 const items = ref(null);
 const emailUser = ref("");
 const { listItems, fetchData, deleteData, addToCart } = useFetch();
 
 const refreshItems = async () => {
-  const email = user.value.email;
-  await fetchData(`user/auth/${email}/wishlist`);
+  await fetchData(`user/auth/${emailUser.value}/wishlist`);
   items.value = listItems.value;
   length.value = items.value.length;
 };
@@ -137,21 +143,26 @@ const handleAddToCart = async (item) => {
     price: item.productPrice,
   };
   await addToCart(data, emailUser.value);
-  open("cart");
+  handleOpenNotification(item, emailUser.value, "cart");
 };
 
 onMounted(async () => {
-  user.value = await User().getCurrentUser();
-  emailUser.value = user.value.email;
+  emailUser.value = await User().getEmail();
   await refreshItems();
 });
 
 const [api, contextHolder] = notification.useNotification();
-const open = (placement) => openNotification(placement);
-const openNotification = (placement) => {
-  api.success({
-    message: `Added success`,
-    description: `click ${placement} to view item`,
-  });
+const handleOpenNotification = (item, emailUser, type) => {
+  if (!emailUser) {
+    api.error({
+      message: "Error",
+      description: "Please login to add to your wish list.",
+    });
+  } else {
+    api.success({
+      message: "Success",
+      description: `Added ${item.name} to your ${type}.`,
+    });
+  }
 };
 </script>

@@ -164,8 +164,8 @@ export default {
 
   async mounted() {
     const { listItems, fetchData } = useFetch();
-    const user = await User().getCurrentUser();
-    this.emailUser = user.email;
+
+    this.emailUser = await User().getEmail();
 
     await fetchData(`user/auth/${this.emailUser}/cart`);
     this.products = listItems;

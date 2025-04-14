@@ -5,7 +5,6 @@
         <a-breadcrumb-item>
           <router-link to="/"> Home </router-link>
         </a-breadcrumb-item>
-        <a-breadcrumb-item>Catalog</a-breadcrumb-item>
         <a-breadcrumb-item>{{ nameList }}</a-breadcrumb-item>
       </a-breadcrumb>
     </div>
@@ -41,8 +40,10 @@
             />
             <div
               class="absolute top-3 right-3 flex flex-col justify-center gap-2"
-              @click.stop.prevent="addToWishList(item, emailUser)"
-              @click="() => open('wish list')"
+              @click.prevent="
+                () => handleOpenNotification(item, emailUser, 'wish list')
+              "
+              @click="addToWishList(item, emailUser)"
             >
               <img
                 loading="lazy"
@@ -55,8 +56,10 @@
               class="add-to-cart absolute bottom-0 left-50% w-full py-2 flex items-center justify-center bg-black"
             >
               <a
-                @click.stop.prevent="addToCart(item, emailUser)"
-                @click="() => open('cart')"
+                @click.prevent="
+                  () => handleOpenNotification(item, emailUser, 'cart')
+                "
+                @click="addToCart(item, emailUser)"
                 class="text-white w-full flex justify-center items-center hover:text-red-400"
               >
                 Add To Cart
@@ -146,12 +149,18 @@
 <script setup>
 import { notification } from "ant-design-vue";
 const [api, contextHolder] = notification.useNotification();
-const open = (placement) => openNotification(placement);
-const openNotification = (placement) => {
-  api.success({
-    message: `Added success`,
-    description: `click ${placement} to view item`,
-  });
+const handleOpenNotification = (item, emailUser, type) => {
+  if (!emailUser) {
+    api.error({
+      message: "Error",
+      description: "Please login to add to your wish list.",
+    });
+  } else {
+    api.success({
+      message: "Success",
+      description: `Added ${item.name} to your ${type}.`,
+    });
+  }
 };
 </script>
 
@@ -212,8 +221,7 @@ export default {
     };
   },
   async mounted() {
-    const user = await User().getCurrentUser();
-    this.emailUser = user.email;
+    this.emailUser = await User().getEmail();
   },
 };
 </script>

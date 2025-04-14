@@ -190,6 +190,7 @@
     <img class="w-8 h-8" src="@/assets/fonts/arrow-up.svg" alt="" />
   </button>
 
+  <!-- Mobile -->
   <div id="menu-modal">
     <div
       :class="isHidden"

@@ -5,12 +5,14 @@
         <li
           :class="{ active: nameList == 'new-arrival' }"
           @click="(nameList = 'new-arrival'), app()"
+          class="cursor-pointer"
         >
           New Arrival
         </li>
         <li
           :class="{ active: nameList == 'best-sells' }"
           @click="(nameList = 'best-sells'), app()"
+          class="cursor-pointer"
         >
           Best Seller
         </li>
@@ -49,8 +51,10 @@
             />
             <div
               class="absolute top-3 right-3 flex flex-col justify-center gap-2"
-              @click.stop.prevent="addToWishList(item, nameList)"
-              @click="() => open('wish list')"
+              @click.prevent="
+                () => handleOpenNotification(item, emailUser, 'wish list')
+              "
+              @click="addToWishList(item, emailUser)"
             >
               <img
                 loading="lazy"
@@ -63,8 +67,10 @@
               class="add-to-cart absolute bottom-0 left-50% w-full py-2 flex items-center justify-center bg-black"
             >
               <a
-                @click.stop.prevent="addToCart(item, nameList)"
-                @click="() => open('cart')"
+                @click.prevent="
+                  () => handleOpenNotification(item, emailUser, 'cart')
+                "
+                @click="addToCart(item, emailUser)"
                 class="text-white w-full flex justify-center items-center hover:text-red-400"
               >
                 Add To Cart
@@ -128,26 +134,50 @@
       </template>
     </div>
   </div>
+  <contextHolder />
 </template>
 
 <script setup>
+import { ref, onMounted } from "vue";
+import { notification } from "ant-design-vue";
+
 import convertMoney from "@/utils/convertMoney";
 import calculatorSales from "@/utils/calculatorDiscount";
 import useFetch from "@/store/fetchAPI";
-import { ref, onMounted } from "vue";
+import User from "@/store/getUser";
+
+// notification
+const [api, contextHolder] = notification.useNotification();
+const handleOpenNotification = (item, emailUser, type) => {
+  console.log(12);
+
+  if (!emailUser) {
+    api.error({
+      message: "Error",
+      description: "Please login to add to your wish list.",
+    });
+  } else {
+    api.success({
+      message: "Success",
+      description: `Added ${item.name} to your ${type}.`,
+    });
+  }
+};
 
 const items = ref([]);
 const nameList = ref("best-sells");
 const { listItems, addToCart, addToWishList, fetchData } = useFetch();
 
 const app = async () => {
-  console.log(nameList.value);
   items.value = [];
   listItems.value = [];
   await fetchData(nameList.value);
   items.value = listItems.value;
 };
+
+const emailUser = ref("");
 onMounted(async () => {
+  emailUser.value = await User().getEmail();
   app();
 });
 </script>

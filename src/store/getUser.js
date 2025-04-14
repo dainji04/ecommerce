@@ -15,10 +15,17 @@ export default function () {
         });
     };
 
-    const email = getCurrentUser().email;
+    const getEmail = async () => {
+        const user = await getCurrentUser();
+        if (user) {
+            return user.email;
+        } else {
+            return null;
+        }
+    };
 
     return {
         getCurrentUser,
-        email,
+        getEmail,
     };
 }

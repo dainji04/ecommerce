@@ -1,11 +1,12 @@
+import router from "@/router";
 import { ref } from "vue";
 
 export default function () {
     const listItems = ref([]);
     const lengthList = ref(null);
     const error = ref(null);
-    const URL = "http://localhost:3000/";
-    // const URL = "https://dainji-server.vercel.app/";
+    // const URL = "http://localhost:3000/";
+    const URL = "https://dainji-server.vercel.app/";
     // const URL = `https://database-fake-api.vercel.app/`;
 
     const fetchData = async (nameList) => {
@@ -45,6 +46,9 @@ export default function () {
     }
 
     function addToWishList(product, emailUser) {
+        if (!emailUser) {
+            return false;
+        }
         const endPoint = `user/auth/${emailUser}/wishlist`;
 
         const data = {
@@ -55,6 +59,7 @@ export default function () {
             productType: product.type.toLowerCase(),
         };
         postData(endPoint, data);
+        return true;
     }
 
     // not yet complete
