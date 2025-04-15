@@ -9,9 +9,9 @@ export default function () {
     const URL = "https://dainji-server.vercel.app/";
     // const URL = `https://database-fake-api.vercel.app/`;
 
-    const fetchData = async (nameList) => {
+    const fetchData = async (endPoint) => {
         try {
-            const response = await fetch(URL + nameList);
+            const response = await fetch(URL + endPoint);
             if (!response.ok) throw new Error("Something went wrong!!");
 
             listItems.value = await response.json();

@@ -21,12 +21,7 @@
             {{ text }}
           </template>
           <template v-else-if="column.dataIndex === 'delete'">
-            <a-popconfirm
-              title="Sure to delete?"
-              @confirm="onDelete(emailUser, record._id)"
-            >
-              <a>Delete</a>
-            </a-popconfirm>
+            <a @click="onDelete(emailUser, record._id)">Delete</a>
           </template>
         </template>
       </a-table>
@@ -51,20 +46,20 @@
           <h1 class="text-base font-semibold mb-6">Cart total</h1>
           <div class="flex justify-between border-b-2 border-[#ccc] pb-4">
             <p>Subtotal:</p>
-            <p>${{ subTotal }}</p>
+            <p>{{ subTotal }} vnđ</p>
           </div>
           <div class="flex justify-between border-b-2 border-[#ccc] py-4">
             <p>Shipping:</p>
             <div>
               <p v-if="subTotal > 500">Free</p>
-              <p v-else>$30</p>
+              <p v-else>30000 vnđ</p>
             </div>
           </div>
           <div class="flex justify-between border-b-2 border-[#ccc] py-4">
             <p>Total:</p>
             <div>
-              <p v-if="subTotal > 500">${{ subTotal }}</p>
-              <p v-else>${{ subTotal + 30 }}</p>
+              <p v-if="subTotal > 500">{{ subTotal }} vnđ</p>
+              <p v-else>{{ subTotal + 30 }} vnđ</p>
             </div>
           </div>
         </div>
@@ -101,7 +96,7 @@ export default {
   setup() {
     const emailUser = ref("");
     const products = ref([]);
-    const { listItems, fetchData, deleteData } = useFetch();
+    const subTotal = ref(0);
 
     const columns = [
       {
@@ -140,13 +135,6 @@ export default {
       }),
     };
 
-    const onDelete = (email, id) => {
-      const endPoint = `user/auth/${email}/cart/${id}`;
-      deleteData(endPoint);
-      setTimeout(async () => {
-        location.reload();
-      }, 100);
-    };
     const formState = reactive({
       "input-number": 1,
     });
@@ -155,9 +143,8 @@ export default {
       formState,
       columns,
       products,
-      subTotal: ref(null),
+      subTotal,
       rowSelection,
-      onDelete,
       emailUser,
     };
   },
@@ -174,9 +161,29 @@ export default {
       product.key = index + 1;
       product.subtotal = product.productPrice * product.quantity;
       this.subTotal += product.subtotal;
-      product.subtotal = "$" + product.subtotal;
-      product.productPrice = "$" + product.productPrice;
+      product.subtotal = product.subtotal + "vnđ";
+      product.productPrice = product.productPrice + "vnđ";
     });
+  },
+  methods: {
+    onDelete(email, id) {
+      const { listItems, fetchData, deleteData } = useFetch();
+
+      const endPoint = `user/auth/${email}/cart/${id}`;
+      deleteData(endPoint);
+      setTimeout(async () => {
+        await fetchData(`user/auth/${email}/cart`);
+        this.products = listItems.value;
+        this.subTotal = 0;
+        this.products.forEach((product, index) => {
+          product.key = index + 1;
+          product.subtotal = product.productPrice * product.quantity;
+          this.subTotal += product.subtotal;
+          product.subtotal = product.subtotal + "vnđ";
+          product.productPrice = product.productPrice + "vnđ";
+        });
+      }, 100);
+    },
   },
 };
 </script>
